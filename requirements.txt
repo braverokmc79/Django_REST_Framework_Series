@@ -1,0 +1,12 @@
+# 설치 방법 :
+#1)리눅스   PYTHONUTF8=1 pip install -r requirements.txt
+#2)파워셸 :  $env:PYTHONUTF8=1; pip install -r requirements.txt
+
+
+asgiref==3.8.1
+Django==5.1.1
+django-extensions==3.2.3
+djangorestframework==3.15.2
+pillow==10.4.0
+sqlparse==0.5.1
+tzdata==2024.2
