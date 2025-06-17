@@ -73,6 +73,9 @@ venv\Scripts\activate
 
 ```bash
 pip install -r requirements.txt
+
+#파워셸 :  
+$env:PYTHONUTF8=1; pip install -r requirements.txt
 ```
 
 3. 서버 실행
@@ -94,9 +97,83 @@ python manage.py migrate
 
 # 3. 반영 확인
 python manage.py showmigrations
+
+```
+
+### 📌 이 명령어의 역할
+django-extensions 패키지의 graph_models 명령어는 지정한 앱(api)의 모델 간 관계를 .dot 파일로 출력합니다.
+이 .dot 파일은 Graphviz를 이용해 시각화할 수 있습니다
+
+
+```bash
+# 4. 모델 확인 
+python manage.py graph_models api > models.dot
+
+```
+
+
+## ✅ Django 모델 시각화: 설치 및 사용 가이드
+
+### 1. 패키지 설치
+
+```bash
+pip install django-extensions pydot
 ```
 
 ---
+
+### 2. `settings.py`에 앱 추가
+
+```python
+INSTALLED_APPS = [
+    # ...
+    'django_extensions',
+]
+```
+
+---
+
+### 3. 모델 관계 `.dot` 파일로 추출
+
+```bash
+python manage.py graph_models api > models.dot
+```
+
+> `api`는 앱 이름입니다. 시각화할 앱의 이름으로 변경하세요.
+
+---
+
+### 4. Graphviz 설치 (이미지로 변환하기 위해 필수)
+
+* 공식 홈페이지: [https://graphviz.org/download/](https://graphviz.org/download/)
+* 설치 후 `dot` 명령어가 터미널에서 실행 가능해야 합니다.
+
+---
+
+### 5. `.dot` 파일을 이미지(PNG)로 변환
+
+```bash
+dot -Tpng models.dot -o models.png
+```
+
+> `models.png` 파일이 생성되며, Django 모델 간의 관계를 시각적으로 확인할 수 있습니다.
+
+---
+
+
+### 2. 온라인 .dot 파일 시각화 사이트
+아래 웹사이트에 .dot 파일 내용 붙여넣거나 업로드해서 그래프를 바로 볼 수 있습니다.
+<a href="https://edotor.net/" target="_blank">
+Graphviz Visual Editor (edotor.net)
+</a>
+<a href="https://dreampuf.github.io/GraphvizOnline/?engin" target="_blank">
+Viz.js Online
+</a>
+
+
+
+
+
 
 ## 📦 Commit 메시지 컨벤션 (Conventional Commits)
 

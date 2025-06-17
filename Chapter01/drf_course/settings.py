@@ -15,16 +15,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Application definition
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': [
-       'rest_framework.renderers.JSONRenderer',
-       'rest_framework.renderers.BrowsableAPIRenderer',  # <- 이게 있어야 UI 보임
-    ]
-}
-
 
 # Application definition
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -33,12 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    
-    'rest_framework',
     'api'
 ]
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,3 +111,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'api.User'
