@@ -14,37 +14,37 @@ Django REST framework(DRF)를 활용한 간단한 Todo API 예제입니다. 이 
 
 ## 🎓 강의 내용
 
-1. Django(DRF) 설정과 모델 구성
-2. Django(DRF) 직렬화 및 브라우저 가능한 API
-3. Django(DRF) 중첩 직렬화기 및 관계 처리
-4. Django(DRF) 서브클래스 직렬화기 & 집계 데이터
-5. Django(DRF) django-silk를 활용한 성능 최적화
-6. Django(DRF) 제네릭 뷰 (ListAPIView, RetrieveAPIView)
-7. Django(DRF) 동적 필터링 - `get_queryset()` 오버라이드
-8. Django(DRF) 권한 시스템 및 테스트
-9. Django(DRF) APIView 클래스 활용
-10. Django(DRF) 데이터 생성 - ListCreateAPIView
-11. Django(DRF) 권한 커스터마이징 & VSCode REST Client
-12. Django(DRF) JWT 인증 설정 (simplejwt)
-13. Django(DRF) 리프레시 토큰 활용
-14. Django(DRF) 데이터 수정 및 삭제 처리
-15. Django(DRF) drf-spectacular로 API 문서화
-16. Django(DRF) django-filter 기반 API 필터링
-17. Django(DRF) SearchFilter & OrderingFilter
-18. Django(DRF) 사용자 정의 필터 백엔드 작성
-19. Django(DRF) PI 페이지네이션 설정
-20. Django(DRF) ViewSet & Router 기본 사용법
-21. Django(DRF) ViewSet의 필터링과 권한 설정
-22. Django(DRF) 관리자 vs 일반 사용자 권한 설정
-23. Django(DRF) 중첩 객체 생성 - `create()` 오버라이드
-24. Django(DRF) 중첩 객체 수정 - `update()` 활용
-25. Django(DRF) ModelSerializer 필드 베스트 프랙티스
-26. Django(DRF) Redis 캐싱 적용
-27. Django(DRF) Vary 헤더로 캐시 제어
-28. Django(DRF) API 쓰로틀링 적용
-29. Django(DRF) API 테스트 전략
-30. Django(DRF) Celery 비동기 작업 연동
-31. Django(DRF) Djoser를 활용한 인증 시스템 구축
+1. Django REST Framework(DRF) - 설정과 모델 구성
+2. Django REST Framework(DRF) - Serializer와 Response 객체 | 브라우저 기반 API
+3. Django REST Framework(DRF) - 중첩 Serializer, SerializerMethodField 및 관계 표현
+4. Django REST Framework(DRF) - Serializer 하위 클래스와 집계형 API 데이터 처리
+5. Django REST Framework(DRF) - django-silk를 활용한 성능 최적화
+6. Django REST Framework(DRF) - Generic View 소개 | ListAPIView & RetrieveAPIView
+7. Django REST Framework(DRF) - 동적 필터링 | get_queryset() 메서드 오버라이딩
+8. Django REST Framework(DRF) - 권한 시스템 및 테스트
+9. Django REST Framework(DRF) - APIView 클래스 활용법
+10. Django REST Framework(DRF) - 데이터 생성하기 | ListCreateAPIView와 Generic View 내부 구조
+11. Django REST Framework(DRF) - Generic View에서 권한 설정 커스터마이징 | VSCode REST Client 확장 기능 사용
+12. Django REST Framework(DRF) - djangorestframework-simplejwt를 이용한 JWT 인증
+13. Django REST Framework(DRF) - Refresh Token과 JWT 인증 심화
+14. Django REST Framework(DRF) - 데이터 수정 및 삭제 처리
+15. Django REST Framework(DRF) - drf-spectacular로 DRF API 문서화 도구
+16. Django REST Framework(DRF) - django-filter 기와 DRF를 이용한 API 필터링
+17. Django REST Framework(DRF) - SearchFilter와 OrderingFilter 사용하기
+18. Django REST Framework(DRF) - 사용자 정의 필터 백엔드 만들기
+19. Django REST Framework(DRF) - API 페이지네이션 설정
+20. Django REST Framework(DRF) - ViewSet & Router 기본 사용법
+21. Django REST Framework(DRF) - Viewset에서의 액션, 필터링, 권한 처리
+22. Django REST Framework(DRF) - Viewset 권한 설정 | 관리자 vs 일반 사용자
+23. Django REST Framework(DRF) - 중첩 객체 생성하기 | Serializer의 create() 메서드 오버라이딩
+24. Django REST Framework(DRF) - 중첩 객체 수정하기 | ModelSerializer의 update() 메서드 사용
+25. Django REST Framework(DRF) - ModelSerializer 필드 구성 - Redis와 함께 캐싱 처리하기
+26. Django REST Framework(DRF) - Django & Redis - Vary Header를 통한 캐싱 동작 제어
+27. Django REST Framework(DRF) - Vary 헤더로 캐시 제어
+28. Django REST Framework(DRF) - API 호출 제한 (Throttling)
+29. Django REST Framework(DRF) -  API 테스트하기
+30. Django REST Framework(DRF) - Celery 비동기 작업 처리하기
+31. Django REST Framework(DRF) - Djoser를 활용한 인증 시스템 구축 | JWT 및 토큰 인증 베스트 프랙티스
 
 ---
 
@@ -99,6 +99,25 @@ python manage.py migrate
 python manage.py showmigrations
 
 ```
+
+```bash
+ manage.py startapp api
+```
+
+---
+
+## 마이그레이션 초기화시 (초기화 방식으로)
+```bash
+rm -f db.sqlite3
+rm -r snippets/migrations
+python manage.py makemigrations snippets
+python manage.py migrate
+python manage.py createsuperuser  # 테스트 사용자 생성
+
+```
+
+
+
 
 ### 📌 이 명령어의 역할
 django-extensions 패키지의 graph_models 명령어는 지정한 앱(api)의 모델 간 관계를 .dot 파일로 출력합니다.
