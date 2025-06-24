@@ -12,7 +12,7 @@ Django REST framework(DRF)를 활용한 간단한 Todo API 예제입니다. 이 
 
 ---
 
-## 🎓 강의 내용
+## 🎓  내용
 
 1. Django REST Framework(DRF) - 설정과 모델 구성
 2. Django REST Framework(DRF) - Serializer와 Response 객체 | 브라우저 기반 API
@@ -103,6 +103,24 @@ python manage.py showmigrations
 ```bash
  manage.py startapp api
 ```
+
+
+
+## ✅ 더미 데이터 삽입 (populate\_database 커맨드)
+
+`manage.py`에 있는 커스텀 커맨드인 `populate_database`를 실행하면 다음과 같은 데이터가 자동 삽입됩니다:
+
+- 테스트 사용자 1명
+- 무작위 상품 여러 개
+- 무작위 주문 3개
+- 각 주문마다 2개의 상품을 포함한 `OrderItem`
+
+```bash
+python manage.py populate_db
+```
+
+데이터베이스를 확인하면 각 테이블이 잘 채워져 있고, 상품-주문 간 다대다 관계도 연결되어 있음을 확인할 수 있습니다.
+
 
 ---
 

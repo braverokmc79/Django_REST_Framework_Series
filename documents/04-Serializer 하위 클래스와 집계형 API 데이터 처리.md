@@ -1,12 +1,12 @@
-## 4강: Django(DRF) 서브클래스 Serializer & 집계 API data
 
+## 04-Serializer 하위 클래스와 집계형 API 데이터 처리
+[![04 - Serializer 하위 클래스와 집계형 API 데이터 처리](https://img.youtube.com/vi/_xbI0-mjtw4/0.jpg)](https://youtu.be/_xbI0-mjtw4?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
 
 🔗 https://youtu.be/_xbI0-mjtw4?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t
 
 ---
-
 
 
 ### 강의 목차
@@ -49,9 +49,14 @@ from rest_framework import serializers
 from .models import Product
 
 class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = ('id', 'name', 'price', 'stock')
+    class Meta:
+        model = Product
+        fields = ('id', 'name', 'description', 'price', 'stock')
+  
+    def validate_price(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("Price must be greater than 0.")
+        return value
 
 class ProductInfoSerializer(serializers.Serializer):
     products = ProductSerializer(many=True)
@@ -61,6 +66,9 @@ class ProductInfoSerializer(serializers.Serializer):
 
 - `ProductSerializer`: 개별 상품 정보 직렬화
 - `ProductInfoSerializer`: 전체 상품 목록과 함께, 총 개수(count), 최대 가격(max\_price) 정보 포함
+
+`serializers.Serializer`는 특정 모델에 바인딩되지 않고, **자유로운 구조의 JSON 응답/입력**을 정의할 수 있는 Serializer입니다.  
+즉, 모델이 아닌 순수 Python 구조에 맞게 정의된 "일반 Serializer"라고 보면 됩니다.
 
 ---
 

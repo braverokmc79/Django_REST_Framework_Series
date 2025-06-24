@@ -1,0 +1,113 @@
+## Django REST Framework(DRF) - 데이터 수정 및 삭제 처리
+
+### 1. 개요
+이 영상에서는 Django REST Framework에서 `Update`와 `Delete` 기능을 다루는 제너릭 뷰(Generic View)를 활용하여 상품 데이터를 수정하고 삭제하는 방법을 알아봅니다.
+
+---
+
+### 2. 사용 클래스 소개
+- `UpdateAPIView`: 단일 객체를 수정 (PUT, PATCH 지원)
+- `DestroyAPIView`: 단일 객체 삭제 (DELETE 지원)
+- `RetrieveUpdateDestroyAPIView`: 조회 + 수정 + 삭제 기능을 통합한 복합 클래스
+
+---
+
+### 3. 기존 뷰 변경
+기존에 사용하던 단일 조회 뷰(`RetrieveAPIView`)를 `RetrieveUpdateDestroyAPIView`로 변경하면 조회, 수정, 삭제 기능을 한 클래스에서 처리할 수 있습니다.
+
+```python
+class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+```
+
+- `GET /products/<int:id>/` → 단일 상품 조회
+- `PUT /products/<int:id>/` → 상품 전체 수정
+- `PATCH /products/<int:id>/` → 상품 일부 수정
+- `DELETE /products/<int:id>/` → 상품 삭제
+
+---
+
+### 4. VSCode REST Client를 이용한 테스트
+HTTP 요청 파일(`api.http`)을 생성하여 다음과 같이 테스트할 수 있습니다:
+
+#### GET 요청:
+```http
+GET http://localhost:8000/products/1/ HTTP/1.1
+```
+
+#### PUT 요청:
+```http
+PUT http://localhost:8000/products/1/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "텔레비전",
+  "description": "최신형 스마트 TV",
+  "price": "300000.00",
+  "stock": 10
+}
+```
+
+#### DELETE 요청:
+```http
+DELETE http://localhost:8000/products/1/ HTTP/1.1
+```
+
+응답 상태 코드:
+- 수정 성공 → `200 OK`
+- 삭제 성공 → `204 No Content`
+- 삭제 후 조회 → `404 Not Found`
+
+---
+
+### 5. 요청 방식에 따른 권한 차등 설정
+`get_permissions()` 메서드를 오버라이딩하여 요청 방식에 따라 다른 권한을 부여할 수 있습니다:
+
+```python
+from rest_framework.permissions import AllowAny, IsAdminUser
+
+class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def get_permissions(self):
+        if self.request.method in ['PUT', 'PATCH', 'DELETE']:
+            return [IsAdminUser()]
+        return [AllowAny()]
+```
+
+- `GET`: 누구나 접근 가능
+- `PUT`, `PATCH`, `DELETE`: 관리자만 접근 가능
+
+---
+
+### 6. 인증 헤더와 토큰 사용
+수정 및 삭제 요청을 보내기 위해서는 관리자 계정으로 JWT 인증이 필요합니다.
+
+1. 로그인 요청으로 JWT 발급:
+```http
+POST http://localhost:8000/api/token/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "비밀번호"
+}
+```
+
+2. 이후 요청 헤더에 Authorization 토큰 포함:
+```http
+Authorization: Bearer <access_token>
+```
+
+---
+
+### 7. 정리
+- `RetrieveUpdateDestroyAPIView` 하나로 조회, 수정, 삭제를 모두 처리 가능
+- 요청 방식별로 권한을 다르게 설정할 수 있음
+- VSCode REST Client로 손쉽게 테스트 가능
+- JWT 인증을 통해 보안 처리 가능
+
+> 다음 영상에서는 Swagger(OpenAPI) 문서 자동화를 통해 API 문서를 만드는 방법을 알아봅니다.
+

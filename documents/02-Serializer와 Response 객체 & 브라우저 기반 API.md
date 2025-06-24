@@ -1,4 +1,31 @@
-## Django REST Framework(DRF) - Serializer와 Response 객체 & 브라우저 기반 API
+## 02-Serializer와 Response 객체 & 브라우저 기반 API
+[![02 - Serializer와 Response 객체 & 브라우저 기반 API](https://img.youtube.com/vi/BMym71Dwox0/0.jpg)](https://youtu.be/BMym71Dwox0?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+---
+
+
+🔗 소스 1. https://github.com/bugbytes-io/drf-course-api
+🔗  소스 2. https://github.com/braverokmc79/Django_REST_Framework_Series
+
+
+
+#### ✅1) 프로젝트 실행 방법 : 
+	이전강의 디렉토리 복사 후 실행
+
+#### ✅2) 더미 데이터 삽입 방법 (populate\_database 커맨드)
+
+1강 확인  
+
+```bash
+
+python manage.py populate_db
+
+```
+
+
+
+---
+
 
 ### 1. 개요
 
@@ -53,16 +80,17 @@ Serializer는 복잡한 모델 인스턴스 또는 쿼리셋을 JSON, XML 등으
 `views.py`에 다음과 같은 함수형 뷰를 작성합니다:
 
 ```python
+from api.serializers import ProductSerializer
+from api.models import Product
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Product
-from .serializers import ProductSerializer
 
 @api_view(['GET'])
 def product_list(request):
-    products = Product.objects.all()
-    serializer = ProductSerializer(products, many=True)
-    return Response(serializer.data)
+    products = Product.objects.all()
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
 ```
 
 - `@api_view(['GET'])`는 이 뷰가 GET 요청만 받도록 제한합니다.
@@ -75,10 +103,11 @@ def product_list(request):
 `urls.py`에 다음을 추가합니다:
 
 ```python
-from .views import product_list
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('products/', product_list),
+     path('products/', views.product_list),
 ]
 ```
 
@@ -93,7 +122,7 @@ urlpatterns = [
 `urls.py`에 다음 경로 추가:
 
 ```python
-path('products/<int:pk>/', product_detail),
+path('products/<int:pk>/', views.product_detail),
 ```
 
 `views.py`에 단일 상품 조회 함수 추가:
@@ -133,5 +162,5 @@ def product_detail(request, pk):
 - 함수형 뷰에서 직렬화 데이터를 `Response`로 반환
 - DRF의 브라우저 기반 API와 렌더링 방식
 
-> 다음 영상에서는 \*\*중첩 Serializer(Nested Serializer)\*\*를 통해 관계형 모델을 JSON으로 표현하는 방법을 알아봅니다.
+> 다음 학습 : 중첩 Serializer(Nested Serializer)\*\*를 통해 관계형 모델을 JSON으로 표현하는 방법을 알아봅니다.
 
