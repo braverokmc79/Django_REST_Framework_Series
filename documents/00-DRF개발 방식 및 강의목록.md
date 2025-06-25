@@ -1,161 +1,279 @@
-# Django REST Framework(DRF) 강의
 
-> 아래는 Django REST Framework를 체계적으로 학습할 수 있는 BugBytes 의 YouTube 강의 시리즈입니다.  
-각 강의를 클릭하면 해당 영상으로 이동합니다.
+# 1. DRF개발 방식
+
+## Django REST Framework(DRF)에서 **가장 많이 쓰이고 공식적으로도 추천되는 방식**은 다음과 같습니다
+
+### ✅ **1위: 제너릭 뷰(Generic Views + 단축 클래스)**
+
+### 🔹 예시:
+
+```python
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from .models import Todo
+from .serializers import TodoSerializer
+
+class TodoListCreateAPI(ListCreateAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+class TodoDetailAPI(RetrieveUpdateDestroyAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+```
+
+
+####  🔖장점:
+
+| 항목            | 설명                                                |
+| ------------- | ------------------------------------------------- |
+| **코드 간결함**    | 한 줄로 `GET`, `POST`, `PUT`, `DELETE` 처리 가능         |
+| **유지보수 쉬움**   | 반복 코드 거의 없음. 유지보수가 용이                             |
+| **기본 동작 자동화** | `queryset`, `serializer_class`만 지정하면 기본 API 동작 제공 |
+| **권장 방식**     | DRF 공식 문서에서도 가장 먼저 소개되는 방식                        |
+
+
+### ✅ 2위: ViewSet + Router 방식
+
+🔹 예시:
+```python
+from rest_framework.viewsets import ModelViewSet
+from .models import Todo
+from .serializers import TodoSerializer
+
+class TodoViewSet(ModelViewSet):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+```
+
+URL은 `router`를 통해 자동 생성됨
+
+```python
+# urls.py
+from rest_framework.routers import DefaultRouter
+from .views import TodoViewSet
+
+router = DefaultRouter()
+router.register(r'todos', TodoViewSet)
+
+urlpatterns = router.urls
+
+```
+
+
+####  🔖 장점:
+
+| 항목                | 설명                                              |
+| ----------------- | ----------------------------------------------- |
+| **URL 자동 생성**     | list, retrieve, create, update, destroy 등 자동 처리 |
+| **Admin 스타일의 구성** | Django Admin처럼 직관적                              |
+| **대규모 프로젝트에 유리**  | URL, View, Action 간 결합이 명확함                     |
+
+
+### ✅ 3위: APIView (직접 메서드 구현)
+
+
+```python
+from rest_framework.views import APIView
+class TodoAPIView(APIView):
+    def get(self, request):
+        ...
+    def post(self, request):
+        ...
+```
+
+#### ⚠️ 단점:
+
+- 반복 코드 많음
+    
+- `queryset`, `serializer` 자동 지원 없음
+    
+- CRUD 모두 직접 처리해야 함
+    
+- 일반적으로 **복잡하거나 비표준 API**에만 사용
+
+
+
+### 🎯 결론: **DRF에서 가장 많이 쓰이고 추천되는 방식**
+
+| 순위    | 방식                                                                              | 추천 상황                       |
+| ----- | ------------------------------------------------------------------------------- | --------------------------- |
+| ✅ 1위  | `GenericAPIView` + 단축 클래스 (`ListCreateAPIView`, `RetrieveUpdateDestroyAPIView`) | **일반적인 CRUD API**           |
+| ✅ 2위  | `ModelViewSet` + `Router`                                                       | **관리형 API 전체 자동화 원할 때**     |
+| ⚠️ 3위 | `APIView`                                                                       | **복잡한 로직, 커스텀 처리 많을 때만** 사용 |
+
+
+
 
 ---
 
-## 01 - 설정과 모델 구성
+
+
+
+# 2-강의 목록
+
+### Django REST Framework(DRF) 강의
+
+> 아래는 Django REST Framework를 체계적으로 학습할 수 있는 BugBytes 의 YouTube 강의 시리즈입니다.  
+
+
+
+
+
+---
+
+### 01 - 설정과 모델 구성
 [![01 - 설정과 모델 구성](https://img.youtube.com/vi/6AEvlNgRPNc/0.jpg)](https://youtu.be/6AEvlNgRPNc?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 02 - Serializer와 Response 객체 & 브라우저 기반 API
+### 02 - Serializer와 Response 객체 & 브라우저 기반 API
 [![02 - Serializer와 Response 객체 & 브라우저 기반 API](https://img.youtube.com/vi/BMym71Dwox0/0.jpg)](https://youtu.be/BMym71Dwox0?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 03 - 중첩 Serializer, SerializerMethodField 및 관계 표현
+### 03 - 중첩 Serializer, SerializerMethodField 및 관계 표현
 [![03 - 중첩 Serializer, SerializerMethodField 및 관계 표현](https://img.youtube.com/vi/KfSYadIFHgY/0.jpg)](https://youtu.be/KfSYadIFHgY?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 04 - Serializer 하위 클래스와 집계형 API 데이터 처리
+### 04 - Serializer 하위 클래스와 집계형 API 데이터 처리
 [![04 - Serializer 하위 클래스와 집계형 API 데이터 처리](https://img.youtube.com/vi/_xbI0-mjtw4/0.jpg)](https://youtu.be/_xbI0-mjtw4?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 05 - django-silk를 활용한 성능 최적화
+### 05 - django-silk를 활용한 성능 최적화
 [![05 - django-silk를 활용한 성능 최적화](https://img.youtube.com/vi/OG8alXR4bEs/0.jpg)](https://youtu.be/OG8alXR4bEs?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 06 - Generic View 소개 & ListAPIView & RetrieveAPIView
+### 06 - Generic View 소개 & ListAPIView & RetrieveAPIView
 [![06 - Generic View 소개 & ListAPIView & RetrieveAPIView](https://img.youtube.com/vi/vExjSChWPWg/0.jpg)](https://youtu.be/vExjSChWPWg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 07 - 동적 필터링 & get_queryset() 메서드 오버라이딩
+### 07 - 동적 필터링 & get_queryset() 메서드 오버라이딩
 [![07 - 동적 필터링 & get_queryset() 메서드 오버라이딩](https://img.youtube.com/vi/3Gi-w4Swge8/0.jpg)](https://youtu.be/3Gi-w4Swge8?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 08 - 권한 시스템 및 테스트
+### 08 - 권한 시스템 및 테스트
 [![08 - 권한 시스템 및 테스트](https://img.youtube.com/vi/rx5IV_4Iuog/0.jpg)](https://youtu.be/rx5IV_4Iuog?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 09 - APIView 클래스 활용법
+### 09 - APIView 클래스 활용법
 [![09 - APIView 클래스 활용법](https://img.youtube.com/vi/TVFCU0w65Ak/0.jpg)](https://youtu.be/TVFCU0w65Ak?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 10 - 데이터 생성하기 & ListCreateAPIView와 Generic View 내부 구조
+### 10 - 데이터 생성하기 & ListCreateAPIView와 Generic View 내부 구조
 [![10 - 데이터 생성하기 & ListCreateAPIView와 Generic View 내부 구조](https://img.youtube.com/vi/Jh85U1nhMh8/0.jpg)](https://youtu.be/Jh85U1nhMh8?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 11 - Generic View에서 권한 설정 커스터마이징 & REST Client 사용
+### 11 - Generic View에서 권한 설정 커스터마이징 & REST Client 사용
 [![11 - Generic View에서 권한 설정 커스터마이징 & REST Client 사용](https://img.youtube.com/vi/mlQZ1i8rUKQ/0.jpg)](https://youtu.be/mlQZ1i8rUKQ?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 12 - simplejwt를 이용한 JWT 인증
+### 12 - simplejwt를 이용한 JWT 인증
 [![12 - simplejwt를 이용한 JWT 인증](https://img.youtube.com/vi/Xp0-Yy5ow5k/0.jpg)](https://youtu.be/Xp0-Yy5ow5k?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 13 - Refresh Token과 JWT 인증 심화
+### 13 - Refresh Token과 JWT 인증 심화
 [![13 - Refresh Token과 JWT 인증 심화](https://img.youtube.com/vi/H3OY36wa7Cs/0.jpg)](https://youtu.be/H3OY36wa7Cs?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 14 - 데이터 수정 및 삭제 처리
+### 14 - 데이터 수정 및 삭제 처리
 [![14 - 데이터 수정 및 삭제 처리](https://img.youtube.com/vi/08gHVFPFuBU/0.jpg)](https://youtu.be/08gHVFPFuBU?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 15 - drf-spectacular로 DRF API 문서화 도구
+### 15 - drf-spectacular로 DRF API 문서화 도구
 [![15 - drf-spectacular로 DRF API 문서화 도구](https://img.youtube.com/vi/E3LUvsPWLwM/0.jpg)](https://youtu.be/E3LUvsPWLwM?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 16 - django-filter와 DRF를 이용한 API 필터링
+### 16 - django-filter와 DRF를 이용한 API 필터링
 [![16 - django-filter와 DRF를 이용한 API 필터링](https://img.youtube.com/vi/NDFgTGTI8zg/0.jpg)](https://youtu.be/NDFgTGTI8zg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 17 - SearchFilter와 OrderingFilter 사용하기
+### 17 - SearchFilter와 OrderingFilter 사용하기
 [![17 - SearchFilter와 OrderingFilter 사용하기](https://img.youtube.com/vi/LCYqDsl1WYI/0.jpg)](https://youtu.be/LCYqDsl1WYI?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 18 - 사용자 정의 필터 백엔드 만들기
+### 18 - 사용자 정의 필터 백엔드 만들기
 [![18 - 사용자 정의 필터 백엔드 만들기](https://img.youtube.com/vi/u4S71cO5QhI/0.jpg)](https://youtu.be/u4S71cO5QhI?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 19 - API 페이지네이션 설정
+### 19 - API 페이지네이션 설정
 [![19 - API 페이지네이션 설정](https://img.youtube.com/vi/sTyMe2R9mzk/0.jpg)](https://youtu.be/sTyMe2R9mzk?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 20 - ViewSet & Router 기본 사용법
+### 20 - ViewSet & Router 기본 사용법
 [![20 - ViewSet & Router 기본 사용법](https://img.youtube.com/vi/4MrB4IvW6Ow/0.jpg)](https://youtu.be/4MrB4IvW6Ow?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 21 - Viewset에서의 액션, 필터링, 권한 처리
+### 21 - Viewset에서의 액션, 필터링, 권한 처리
 [![21 - Viewset에서의 액션, 필터링, 권한 처리](https://img.youtube.com/vi/rekvVrjUMjg/0.jpg)](https://youtu.be/rekvVrjUMjg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 22 - Viewset 권한 설정 & 관리자 vs 일반 사용자
+### 22 - Viewset 권한 설정 & 관리자 vs 일반 사용자
 [![22 - Viewset 권한 설정 & 관리자 vs 일반 사용자](https://img.youtube.com/vi/KmYYg1qJKNQ/0.jpg)](https://youtu.be/KmYYg1qJKNQ?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 23 - 중첩 객체 생성하기 & create() 오버라이딩
+### 23 - 중첩 객체 생성하기 & create() 오버라이딩
 [![23 - 중첩 객체 생성하기 & create() 오버라이딩](https://img.youtube.com/vi/CAq7AKAT7Q0/0.jpg)](https://youtu.be/CAq7AKAT7Q0?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 24 - 중첩 객체 수정하기 & update() 사용
+### 24 - 중첩 객체 수정하기 & update() 사용
 [![24 - 중첩 객체 수정하기 & update() 사용](https://img.youtube.com/vi/QtkES6O_ed4/0.jpg)](https://youtu.be/QtkES6O_ed4?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 25 - ModelSerializer 필드 구성 & Redis 캐싱 처리
+### 25 - ModelSerializer 필드 구성 & Redis 캐싱 처리
 [![25 - ModelSerializer 필드 구성 & Redis 캐싱 처리](https://img.youtube.com/vi/NgUARZNOuTY/0.jpg)](https://youtu.be/NgUARZNOuTY?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 26 - Django & Redis - Vary Header를 통한 캐싱 제어
+### 26 - Django & Redis - Vary Header를 통한 캐싱 제어
 [![26 - Django & Redis - Vary Header를 통한 캐싱 제어](https://img.youtube.com/vi/5W2Yff00H8s/0.jpg)](https://youtu.be/5W2Yff00H8s?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 27 - Vary 헤더로 캐시 제어
+### 27 - Vary 헤더로 캐시 제어
 [![27 - Vary 헤더로 캐시 제어](https://img.youtube.com/vi/iUn8go-XZNw/0.jpg)](https://youtu.be/iUn8go-XZNw?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 28 - API 호출 제한 (Throttling)
+### 28 - API 호출 제한 (Throttling)
 [![28 - API 호출 제한 (Throttling)](https://img.youtube.com/vi/95ndK3P9YLI/0.jpg)](https://youtu.be/95ndK3P9YLI?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 29 - API 테스트하기
+### 29 - API 테스트하기
 [![29 - API 테스트하기](https://img.youtube.com/vi/sRluxnmZ-H8/0.jpg)](https://youtu.be/sRluxnmZ-H8?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 30 - Celery 비동기 작업 처리하기
+### 30 - Celery 비동기 작업 처리하기
 [![30 - Celery 비동기 작업 처리하기](https://img.youtube.com/vi/E6HPMk0bKPY/0.jpg)](https://youtu.be/E6HPMk0bKPY?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
-## 31 - Djoser를 활용한 인증 시스템 구축 & JWT 베스트 프랙티스
+### 31 - Djoser를 활용한 인증 시스템 구축 & JWT 베스트 프랙티스
 [![31 - Djoser를 활용한 인증 시스템 구축 & JWT 베스트 프랙티스](https://img.youtube.com/vi/QO8UyXWNg-k/0.jpg)](https://youtu.be/QO8UyXWNg-k?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---

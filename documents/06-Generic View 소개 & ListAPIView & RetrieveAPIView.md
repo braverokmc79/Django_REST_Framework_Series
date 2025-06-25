@@ -1,10 +1,16 @@
 
+## 06-Generic View 소개 & ListAPIView & RetrieveAPIView
 
-## Django REST Framework(DRF) - Generic View 소개 & ListAPIView & RetrieveAPIView
+[![06 - Generic View 소개 & ListAPIView & RetrieveAPIView](https://img.youtube.com/vi/vExjSChWPWg/0.jpg)](https://youtu.be/vExjSChWPWg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+---
+
+
 
 ### 1. 개요
 
-이번 영상에서는 지금까지 사용해온 함수형 뷰(function-based view) 대신 클래스 기반 뷰(class-based view)를 사용하는 방법을 소개합니다. DRF의 진정한 강점은 이 클래스 기반 뷰(Generic View)에 있으며, 반복되는 로직을 줄이고 공통된 동작을 추상화하여 더 효율적인 개발이 가능합니다.
+이번 강의 에서는 지금까지 사용해온 함수형 뷰(function-based view) 대신 클래스 기반 뷰(class-based view)를 사용하는 방법을 소개합니다. DRF의 진정한 강점은 이 클래스 기반 뷰(Generic View)에 있으며, 반복되는 로직을 줄이고 공통된 동작을 추상화하여 더 효율적인 개발이 가능합니다.
 
 ---
 
@@ -35,6 +41,17 @@ class UserListView(generics.ListCreateAPIView):
 
 기존의 `products` 함수형 뷰를 `ListAPIView`로 변경하면 다음과 같습니다:
 
+기존 :
+```python
+@api_view(['GET'])
+def product_list(request):
+    products = Product.objects.all()
+    serializer =ProductSerializer(products, many=True)
+    return Response(serializer.data)
+```
+
+ ➡️ 변환
+ 
 ```python
 from rest_framework import generics
 
@@ -47,6 +64,8 @@ class ProductListAPIView(generics.ListAPIView):
     
 - `serializer_class`는 데이터를 어떻게 JSON으로 직렬화할지를 결정합니다.
     
+
+
 
 URL 연결 시에는 `.as_view()`를 사용하여 클래스형 뷰를 등록합니다.
 
@@ -66,6 +85,7 @@ path('products/', ProductListAPIView.as_view())
 class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    lookup_url_kwarg = 'product_id'
 ```
 
 이제 `/products/1/`와 같은 요청으로 상품 ID 1번의 상세 정보를 반환할 수 있습니다.
@@ -89,12 +109,62 @@ path('products/<int:product_id>/', ProductDetailAPIView.as_view())
 상품 리스트에서 품절된 상품을 제외하고 싶은 경우 `queryset`에 `.filter()`를 적용할 수 있습니다:
 
 ```python
+queryset = Product.objects.all()
+```
+
+➡️
+
+```python
 queryset = Product.objects.filter(stock__gt=0)
 ```
+
+```python
+class ProductListAPIView(generics.ListAPIView):
+    queryset = Product.objects.exclude(stock__gt=0)
+    serializer_class = ProductSerializer
+```
+
+
 
 재고가 0 이상인 상품만 반환됩니다. 반대로 `exclude(stock=0)`을 통해 품절 상품만 조회할 수도 있습니다.
 
 ---
+
+### 6.  order_list   -> OrderListAPIView  변환
+
+#### ✔ 특징
+
+- **함수형 뷰** 방식
+- `@api_view(['GET'])`로 HTTP 메서드 지정
+- `직접 쿼리`, `직접 시리얼라이즈`, `직접 Response 리턴`
+- 단순하지만, 코드가 장황해지기 쉬움
+- 
+```python
+@api_view(['GET'])
+def order_list(request):    
+    orders = Order.objects.prefetch_related('items__product')
+    serializer = OrderSerializer(orders, many=True)
+    return Response(serializer.data)
+```
+
+➡️
+
+```python
+class OrderListAPIView(generics.ListAPIView):
+    queryset = Order.objects.prefetch_related('items__product')
+    serializer_class = OrderSerializer
+```
+#### ✔ 특징
+
+- **클래스형 뷰** 방식 
+- `ListAPIView`는 기본적으로 `GET` 요청을 처리함
+- `queryset`과 `serializer_class`만 지정하면 자동으로 처리됨
+- **반복 코드 최소화**, **유지보수 용이**
+
+
+
+---
+
 
 ### 6. 마무리
 

@@ -5,7 +5,7 @@
 
 
 🔗 소스 1. https://github.com/bugbytes-io/drf-course-api
-🔗  소스 2. https://github.com/braverokmc79/Django_REST_Framework_Series
+🔗  소스 2. https://github.dev/braverokmc79/Django_REST_Framework_Series
 
 
 
