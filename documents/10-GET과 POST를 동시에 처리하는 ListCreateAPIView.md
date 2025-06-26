@@ -1,5 +1,5 @@
 
-### 10-GET과 POST를 동시에 처리하는 ListCreateAPIView
+## 10-GET과 POST를 동시에 처리하는 ListCreateAPIView
 [![10 - 데이터 생성하기 & ListCreateAPIView와 Generic View 내부 구조](https://img.youtube.com/vi/Jh85U1nhMh8/0.jpg)](https://youtu.be/Jh85U1nhMh8?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
