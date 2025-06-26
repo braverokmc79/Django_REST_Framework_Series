@@ -22,8 +22,30 @@ class TodoDetailAPI(RetrieveUpdateDestroyAPIView):
 
 ```
 
+##### ✅ `RetrieveUpdateDestroyAPIView`는 다음 HTTP 메서드 3개를 처리합니다:
 
-####  🔖장점:
+| 메서드      | 설명    | 예시 URL               |
+| -------- | ----- | -------------------- |
+| `GET`    | 상세 조회 | `/todo/1/`           |
+| `PUT`    | 전체 수정 | `/todo/1/` + JSON 바디 |
+| `DELETE` | 삭제    | `/todo/1/`           |
+
+##### ✅ 왜 쓰나요?
+
+- `RetrieveAPIView` + `UpdateAPIView` + `DestroyAPIView`를 **하나로 합친 클래스**
+    
+- 중복 없이 **하나의 API endpoint에서 상세조회, 수정, 삭제를 처리** 가능
+
+##### ✅ 구성 요약:
+```python
+class TodoGenericsRetrieveUpdateDeleteAPI(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Todo.objects.all()         # 어디서 데이터를 가져올지
+    serializer_class = TodoSerializer     # 데이터를 어떻게 직렬화할지
+```
+
+
+
+####  🔖제너릭 뷰(Generic Views) 장점:
 
 | 항목            | 설명                                                |
 | ------------- | ------------------------------------------------- |
@@ -31,6 +53,9 @@ class TodoDetailAPI(RetrieveUpdateDestroyAPIView):
 | **유지보수 쉬움**   | 반복 코드 거의 없음. 유지보수가 용이                             |
 | **기본 동작 자동화** | `queryset`, `serializer_class`만 지정하면 기본 API 동작 제공 |
 | **권장 방식**     | DRF 공식 문서에서도 가장 먼저 소개되는 방식                        |
+
+___
+
 
 
 ### ✅ 2위: ViewSet + Router 방식
@@ -69,6 +94,9 @@ urlpatterns = router.urls
 | **URL 자동 생성**     | list, retrieve, create, update, destroy 등 자동 처리 |
 | **Admin 스타일의 구성** | Django Admin처럼 직관적                              |
 | **대규모 프로젝트에 유리**  | URL, View, Action 간 결합이 명확함                     |
+
+
+---
 
 
 ### ✅ 3위: APIView (직접 메서드 구현)

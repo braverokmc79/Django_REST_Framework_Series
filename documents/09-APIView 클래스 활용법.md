@@ -1,5 +1,12 @@
 ## Django REST Framework(DRF) - APIView 클래스 활용법
 
+## 09-APIView 클래스 활용법
+[![09 - APIView 클래스 활용법](https://img.youtube.com/vi/TVFCU0w65Ak/0.jpg)](https://youtu.be/TVFCU0w65Ak?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+---
+
+
 ### 1. 개요
 이번에는 Django REST Framework에서 제공하는 `APIView` 클래스를 어떻게 사용하는지에 대해 설명합니다. 이 클래스는 Django의 일반적인 뷰 클래스와 유사하지만, REST API에 특화된 기능을 제공하여 더욱 유연하고 강력한 API 뷰를 만들 수 있습니다.
 
@@ -17,7 +24,7 @@
 
 ### 3. 예제 코드: 기존 함수형 뷰 → APIView 클래스 기반 뷰로 변환
 
-함수형 뷰:
+#### 함수형 뷰:
 ```python
 @api_view(['GET'])
 def product_info(request):
@@ -29,8 +36,18 @@ def product_info(request):
     })
     return Response(serializer.data)
 ```
+##### ✔ 특징
 
-APIView 클래스로 변환:
+- `@api_view(['GET'])`를 사용해 HTTP 메서드를 지정
+    
+- 일반 `def` 함수로 작성
+    
+- 간단하고 빠르게 작성 가능
+    
+- 소규모 API에 적합
+
+
+#### APIView 클래스로 변환:
 ```python
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -46,10 +63,35 @@ class ProductInfoAPIView(APIView):
         return Response(serializer.data)
 ```
 
+####  ✔ 특징
+
+- `APIView`를 상속하여 클래스 기반으로 작성    
+- 
+- `get()`, `post()`, `put()` 등 메서드로 명확하게 분리
+- 
+- 뷰 로직을 재사용하거나 확장하기에 유리
+- 
+- URL 등록 시 `.as_view()`로 처리
+
+
+
+
 `urls.py`에서 함수형 뷰 대신 클래스를 등록:
 ```python
 path('products/info/', ProductInfoAPIView.as_view()),
 ```
+
+
+#### 🔄 함수형 → 클래스형 변환 요약
+
+|항목|함수형 뷰 (`@api_view`)|클래스형 뷰 (`APIView`)|
+|---|---|---|
+|선언 방식|`@api_view(['GET'])` + `def`|`class ... (APIView)`|
+|메서드 구분|데코레이터로 제한|`def get()`, `def post()` 등 명시적|
+|재사용성/확장성|낮음|높음|
+|대규모 API 설계|불리함|유리함|
+
+
 
 ---
 
@@ -74,5 +116,5 @@ path('products/info/', ProductInfoAPIView.as_view()),
 
 ---
 
-> 다음 영상에서는 Create, Update, Delete 작업을 처리하는 제너릭 뷰와 JWT 인증 방식에 대해 다룰 예정입니다.
+> 다음 강의에서는 Create, Update, Delete 작업을 처리하는 제너릭 뷰와 JWT 인증 방식에 대해 다룰 예정입니다.
 
