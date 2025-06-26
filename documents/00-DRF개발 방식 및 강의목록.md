@@ -3,9 +3,51 @@
 
 ## Django REST Framework(DRF)에서 **가장 많이 쓰이고 공식적으로도 추천되는 방식**은 다음과 같습니다
 
-### ✅ **1위: 제너릭 뷰(Generic Views + 단축 클래스)**
 
-### 🔹 예시:
+### ✅ **1위: 제네릭 뷰(GenericAPIView + Mixin / 단축 클래스)**
+
+---
+```python
+  #GenericAPIView
+  path("generics/list/", TodoGenericsListAPI.as_view()),
+  path("generics/create/", TodoGenericsCreateAPI.as_view()),
+  path("generics/retrieve/<int:pk>/", TodoGenericsRetrieveAPI.as_view()),
+  path("generics/update/<int:pk>/", TodoGenericsUpdateAPI.as_view()),  
+  path("generics/delete/<int:pk>/", TodoGenericsDeleteAPI.as_view()),
+
+
+
+  # GenericAPIView + Mixin
+  path("mixin_generics/", TodoGenericsListCreateAPI.as_view()),
+  path("mixin_generics/<int:pk>/", TodoGenericsRetrieveUpdateDeleteAPI.as_view()),
+```
+
+  🔖 GenericAPIView 호출예 
+```python
+ #
+  # http://127.0.0.1:8000/todo/generics/list/
+  # http://127.0.0.1:8000/todo/generics/create/
+  # http://127.0.0.1:8000/todo/generics/retrieve/1/
+  # http://127.0.0.1:8000/todo/generics/update/1/
+  # http://127.0.0.1:8000/todo/generics/delete/1
+  
+```
+
+  🔖 GenericAPIView + Mixin 호출예
+```python
+# List + Create 
+#generics.ListCreateAPIView
+# http://127.0.0.1:8000/todo/mixin_generics/   GET, CREATE
+
+
+
+# Retrieve + Update + Delete (RUD)
+# generics.RetrieveUpdateDestroyAPIView
+# http://127.0.0.1:8000/todo/mixin_generics/1/ GET, PUT, DELETE 모두 처리
+```
+
+
+#### ✅ **[방식 1] 단축 클래스(Generic Class-based Views)**
 
 ```python
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
@@ -19,40 +61,91 @@ class TodoListCreateAPI(ListCreateAPIView):
 class TodoDetailAPI(RetrieveUpdateDestroyAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
-
 ```
 
-##### ✅ `RetrieveUpdateDestroyAPIView`는 다음 HTTP 메서드 3개를 처리합니다:
+##### ✅ RetrieveUpdateDestroyAPIView는 다음 HTTP 메서드 3개를 처리합니다:
 
-| 메서드      | 설명    | 예시 URL               |
-| -------- | ----- | -------------------- |
-| `GET`    | 상세 조회 | `/todo/1/`           |
-| `PUT`    | 전체 수정 | `/todo/1/` + JSON 바디 |
-| `DELETE` | 삭제    | `/todo/1/`           |
+|메서드|설명|예시 URL|
+|---|---|---|
+|GET|상세 조회|/todo/1/|
+|PUT|전체 수정|/todo/1/ + JSON 바디|
+|DELETE|삭제|/todo/1/|
 
-##### ✅ 왜 쓰나요?
+##### ✅ 장점:
 
-- `RetrieveAPIView` + `UpdateAPIView` + `DestroyAPIView`를 **하나로 합친 클래스**
+- `RetrieveAPIView + UpdateAPIView + DestroyAPIView`를 **하나로 합친 클래스**
     
-- 중복 없이 **하나의 API endpoint에서 상세조회, 수정, 삭제를 처리** 가능
+- 중복 없이 **하나의 API endpoint에서 상세조회, 수정, 삭제 처리** 가능
+    
 
 ##### ✅ 구성 요약:
+
 ```python
 class TodoGenericsRetrieveUpdateDeleteAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Todo.objects.all()         # 어디서 데이터를 가져올지
     serializer_class = TodoSerializer     # 데이터를 어떻게 직렬화할지
 ```
 
+---
+
+#### ✅ **[방식 2] GenericAPIView + Mixin 조합**
+
+```python
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
+from .models import Todo
+from .serializers import TodoSerializer
+
+class TodoListCreateAPI(ListModelMixin, CreateModelMixin, GenericAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+class TodoDetailAPI(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+```
+
+##### ✅ 장점:
+
+- **조합의 유연성**: 필요한 Mixin만 골라 쓸 수 있어 **정밀 제어 가능**
+    
+- **공식 문서 예제에서도 종종 등장하는 패턴**
+    
+- **복잡한 조건 처리나 커스터마이징이 쉬움**
+    
+
+---
+
+#### 🔖 제너릭 뷰(Generic View) 방식 비교 요약
+
+| 항목           | 단축 클래스(Generic Views)             | GenericAPIView + Mixin 조합 |
+| ------------ | --------------------------------- | ------------------------- |
+| **코드 간결성**   | 매우 높음 (GET/POST/PUT/DELETE 자동 지원) | 중간 (직접 메서드 구현 필요)         |
+| **사용 난이도**   | 쉬움                                | 약간 높음 (직접 Mixin 조합 필요)    |
+| **커스터마이징**   | 낮음 (기본 동작 위주)                     | 높음 (로직 세분화 및 복잡한 처리 가능)   |
+| **유지보수**     | 쉬움 (반복 코드 없음)                     | 구조 명확, 복잡한 프로젝트에 적합       |
+| **공식 권장 여부** | ✅ 가장 먼저 소개되는 방식                   | ✅ 다양한 상황에 대응 가능           |
+
+---
+
+####  ✅ **정리**: 대부분의 경우엔 **단축 클래스(Generic View)로 충분하며, 특별한 커스터마이징이 필요할 때는 GenericAPIView + Mixin** 조합을 고려하는 것이 좋습니다.
 
 
-####  🔖제너릭 뷰(Generic Views) 장점:
-
-| 항목            | 설명                                                |
-| ------------- | ------------------------------------------------- |
-| **코드 간결함**    | 한 줄로 `GET`, `POST`, `PUT`, `DELETE` 처리 가능         |
-| **유지보수 쉬움**   | 반복 코드 거의 없음. 유지보수가 용이                             |
-| **기본 동작 자동화** | `queryset`, `serializer_class`만 지정하면 기본 API 동작 제공 |
-| **권장 방식**     | DRF 공식 문서에서도 가장 먼저 소개되는 방식                        |
 
 ___
 
@@ -196,7 +289,7 @@ class TodoAPIView(APIView):
 
 ---
 
-### 10 - 데이터 생성하기 & ListCreateAPIView와 Generic View 내부 구조
+###  10-GET과 POST를 동시에 처리하는 ListCreateAPIView
 [![10 - 데이터 생성하기 & ListCreateAPIView와 Generic View 내부 구조](https://img.youtube.com/vi/Jh85U1nhMh8/0.jpg)](https://youtu.be/Jh85U1nhMh8?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---

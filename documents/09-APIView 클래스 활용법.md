@@ -1,5 +1,3 @@
-## Django REST Framework(DRF) - APIView 클래스 활용법
-
 ## 09-APIView 클래스 활용법
 [![09 - APIView 클래스 활용법](https://img.youtube.com/vi/TVFCU0w65Ak/0.jpg)](https://youtu.be/TVFCU0w65Ak?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 

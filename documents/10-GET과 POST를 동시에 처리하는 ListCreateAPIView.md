@@ -1,4 +1,11 @@
-## Django REST Framework(DRF) - 데이터 생성하기 & ListCreateAPIView와 Generic View 내부 구조
+
+### 10-GET과 POST를 동시에 처리하는 ListCreateAPIView
+[![10 - 데이터 생성하기 & ListCreateAPIView와 Generic View 내부 구조](https://img.youtube.com/vi/Jh85U1nhMh8/0.jpg)](https://youtu.be/Jh85U1nhMh8?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
+---
+
 
 ### 1. 개요
 
@@ -23,15 +30,29 @@
 from rest_framework import generics
 
 class ProductCreateAPIView(generics.CreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class ProductListAPIView(generics.ListAPIView):
+    queryset = Product.objects.exclude(stock__gt=0)
+    serializer_class = ProductSerializer
 ```
 
 - 모델에 연결된 필드들 중 필수 값들은 POST 요청으로 함께 전송해야 합니다.
 - 예: `name`, `description`, `price`, `stock` 등
 - `id` 필드는 자동 생성되므로 요청에 포함하면 안 됩니다.
 
+ urls.py     
+```python
+    path('products/create/', views.ProductCreateAPIView.as_view()),
+    path('products/list/', views.ProductListAPIView.as_view()),
+```
+
+
+
 ---
+
 
 ### 4. ProductSerializer 수정
 
@@ -51,7 +72,9 @@ path('products/create/', ProductCreateAPIView.as_view()),
 
 ---
 
-### 6. GET과 POST 통합: ListCreateAPIView
+
+
+### 🔖 6. GET과 POST 통합: ListCreateAPIView
 
 REST 설계에서는 **같은 URL 엔드포인트에서 GET과 POST를 모두 지원**하는 것이 일반적입니다.
 
@@ -69,7 +92,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 `urls.py`에서는 기존의 `/products/` 경로를 이 뷰로 연결하면 됩니다:
 
 ```python
-path('products/', ProductListCreateAPIView.as_view()),
+ path('products/', views.ProductListCreateAPIView.as_view()),
 ```
 
 이제 같은 URL에서 GET/POST 모두 처리됩니다.
