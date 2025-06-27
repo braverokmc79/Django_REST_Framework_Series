@@ -120,6 +120,12 @@ AUTH_PASSWORD_VALIDATORS = [][] 빈리스트로 변경 하면 검증이 꺼집�
 4. 저장한 `django_rest_collection.json` 선택
     
 
+🖼️ 임포트 된 Insomnia
+
+![임포트된 insomnia](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTDlaGJd7QXeWxr-dR5ev_PwqS9mDlx2ihBrYjwT3tcgwP9Q06YHl-KLlNguN9-UK4UFXUYsRDiP7nRfldGdS_arJyjFsHiyRzF5TNof7VpaIbTPsyf5w63qj_QoKCfPQgANDi4anEQAgf2xIECHvAMDKU3g7JRGTZsovr79U6hHXKvratEqZIDEk0E9Us/w424-h640/2025-06-27%2014%2008%2038.png)
+
+
+
 ---
 
 ###### ✅ **1. Import 후 확인**
@@ -208,6 +214,8 @@ JWT는 3개의 파트로 구성됨:
 예: 상품 생성 API는 관리자만 가능하도록 설정함:
 
 ```python
+from rest_framework.permissions import (IsAuthenticated,IsAdminUser,AllowAny)
+
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     ...
     def get_permissions(self):
