@@ -314,7 +314,7 @@ class TodoAPIView(APIView):
 
 ---
 
-### 15 - drf-spectacular로 DRF API 문서화 도구
+### 15 - DRF-spectacular로 DRF API 문서화 도구 및 Swagger(OpenAPI) 문서 자동화
 [![15 - drf-spectacular로 DRF API 문서화 도구](https://img.youtube.com/vi/E3LUvsPWLwM/0.jpg)](https://youtu.be/E3LUvsPWLwM?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
