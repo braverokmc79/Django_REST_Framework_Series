@@ -167,8 +167,8 @@ class CustomLimitOffsetPagination(LimitOffsetPagination):
 #### 2) `ProductListCreateAPIView`에 적용하기
 
 ```python
-# views.py
-from .pagination import CustomLimitOffsetPagination  # ← 경로에 맞게 수정
+# views.py # ← 경로에 맞게 수정
+from drf_course.custom_pagination import CustomLimitOffsetPagination 
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
