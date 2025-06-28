@@ -1,8 +1,9 @@
-## Django REST Framework(DRF) - 사용자 정의 필터 백엔드 만들기
+## 18-사용자 정의 필터 백엔드 만들기
+
 
 ### 1. 개요
 
-이번 영상에서는 Django REST Framework에서 **사용자 정의(Custom) 필터 백엔드**를 만드는 방법을 알아봅니다. 기존의 `django-filter`, `SearchFilter`, `OrderingFilter` 외에도, 자신만의 필터링 로직을 추가하고 싶은 경우에 유용합니다.
+이번 강의에서는 Django REST Framework에서 **사용자 정의(Custom) 필터 백엔드**를 만드는 방법을 알아봅니다. 기존의 `django-filter`, `SearchFilter`, `OrderingFilter` 외에도, 자신만의 필터링 로직을 추가하고 싶은 경우에 유용합니다.
 
 ---
 
@@ -22,14 +23,15 @@ class IsOwnerFilterBackend(BaseFilterBackend):
 
 ---
 
+
 ### 3. 실습: 재고가 있는 상품만 응답하는 필터 만들기
 
 #### 1) `filters.py` 파일에 다음 클래스 추가:
 
 ```python
-from rest_framework.filters import BaseFilterBackend
+from rest_framework import filters
 
-class InStockFilterBackend(BaseFilterBackend):
+class InStockFilterBackend(filters.BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
         return queryset.filter(stock__gt=0)  # 재고가 0보다 큰 상품만 필터링
 ```
@@ -37,6 +39,7 @@ class InStockFilterBackend(BaseFilterBackend):
 > 이 필터는 재고가 하나라도 있는 상품만 필터링하여 클라이언트에게 보여줍니다.
 
 ---
+
 
 ### 4. 뷰(View)에 사용자 정의 필터 백엔드 추가하기
 
@@ -46,10 +49,15 @@ class InStockFilterBackend(BaseFilterBackend):
 from .filters import ProductFilter, InStockFilterBackend
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter, InStockFilterBackend]
-    filterset_class = ProductFilter
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filterset_class = ProductFilter
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+        InStockFilterBackend
+    ]
 ```
 
 - `InStockFilterBackend`는 마지막에 추가
@@ -57,10 +65,13 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 
 ---
 
+
+
 ### 5. 테스트 방법
 
 - API 요청: `GET /products/`
 - 응답에는 재고가 있는 상품만 포함됨
+
 
 #### 확인 방법:
 
