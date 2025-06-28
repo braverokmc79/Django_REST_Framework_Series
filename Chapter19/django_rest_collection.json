@@ -1,0 +1,104 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-06-26T12:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "wrk_django_rest_framework",
+      "name": "Django_REST_Framework_Series",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_django_rest_env",
+      "_type": "environment",
+      "parentId": "wrk_django_rest_framework",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://127.0.0.1:8000"
+      }
+    },
+
+    // 🟢 Token API
+    {
+      "_id": "req_token_obtain",
+      "_type": "request",
+      "parentId": "wrk_django_rest_framework",
+      "name": "JWT - Get Token",
+      "method": "POST",
+      "url": "{{ base_url }}/api/token/",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"admin\",\n  \"password\": \"admin1234\"\n}"
+      }
+    },
+    {
+      "_id": "req_token_refresh",
+      "_type": "request",
+      "parentId": "wrk_django_rest_framework",
+      "name": "JWT - Refresh Token",
+      "method": "POST",
+      "url": "{{ base_url }}/api/token/refresh/",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"refresh\": \"<refresh_token_here>\"\n}"
+      }
+    },
+
+    // 📦 Product API
+    {
+      "_id": "req_product_list",
+      "_type": "request",
+      "parentId": "wrk_django_rest_framework",
+      "name": "GET - Product List",
+      "method": "GET",
+      "url": "{{ base_url }}/products/"
+    },
+    {
+      "_id": "req_product_create",
+      "_type": "request",
+      "parentId": "wrk_django_rest_framework",
+      "name": "POST - Create Product",
+      "method": "POST",
+      "url": "{{ base_url }}/products/",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Macaron\",\n  \"price\": 1200\n}"
+      }
+    },
+    {
+      "_id": "req_product_detail",
+      "_type": "request",
+      "parentId": "wrk_django_rest_framework",
+      "name": "GET - Product Detail",
+      "method": "GET",
+      "url": "{{ base_url }}/products/1/"
+    },
+    {
+      "_id": "req_product_info",
+      "_type": "request",
+      "parentId": "wrk_django_rest_framework",
+      "name": "GET - Product Info",
+      "method": "GET",
+      "url": "{{ base_url }}/products/info/"
+    },
+
+    // 📋 Order API
+    {
+      "_id": "req_order_list",
+      "_type": "request",
+      "parentId": "wrk_django_rest_framework",
+      "name": "GET - Order List",
+      "method": "GET",
+      "url": "{{ base_url }}/orders/"
+    },
+    {
+      "_id": "req_user_orders",
+      "_type": "request",
+      "parentId": "wrk_django_rest_framework",
+      "name": "GET - User Order List",
+      "method": "GET",
+      "url": "{{ base_url }}/user-orders/"
+    }
+  ]
+}
