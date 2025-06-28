@@ -1,6 +1,11 @@
-## Django REST Framework(DRF) - ViewSet에서의 액션, 필터링, 권한 처리
+## 21-Viewset에서의 액션, 필터링, 권한 처리
+[![21 - Viewset에서의 액션, 필터링, 권한 처리](https://img.youtube.com/vi/rekvVrjUMjg/0.jpg)](https://youtu.be/rekvVrjUMjg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+---
 
 ### 1. 개요
+
 이번 강의에서는 Django REST Framework의 ViewSet을 확장하여 **액션 추가**, **필터링 적용**, **권한 제어** 기능을 다루게 됩니다. ViewSet의 기본 CRUD 외에 사용자 맞춤형 기능을 추가하고, 필터 조건 및 인증 기반 제어를 통해 더욱 안전하고 유연한 API를 구성하는 방법을 배웁니다.
 
 ---

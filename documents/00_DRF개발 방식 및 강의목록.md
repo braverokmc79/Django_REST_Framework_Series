@@ -240,8 +240,6 @@ class TodoAPIView(APIView):
 
 
 
-
-
 ---
 
 ### 01 - 설정과 모델 구성
