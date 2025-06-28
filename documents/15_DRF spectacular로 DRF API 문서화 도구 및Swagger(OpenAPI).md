@@ -48,6 +48,67 @@ REST_FRAMEWORK = {
 }
 ```
 
+
+```python
+# Application definition
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+       'rest_framework.renderers.JSONRenderer',
+       'rest_framework.renderers.BrowsableAPIRenderer',  # <- 이게 있어야 UI 보임
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+```
+#### 🔹 `DEFAULT_RENDERER_CLASSES`
+
+- **`JSONRenderer`**: API 응답을 JSON 형식으로 반환합니다. (기본적인 데이터 전송용)
+    
+- **`BrowsableAPIRenderer`**: 웹 브라우저에서 DRF UI를 제공합니다.  
+    👉 이게 있어야 `/api/` 주소 접속 시 예쁘고 테스트 가능한 웹 UI가 나옵니다.
+
+
+```python
+'DEFAULT_AUTHENTICATION_CLASSES': [
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
+    'rest_framework.authentication.SessionAuthentication',
+],
+
+```
+
+#### 🔹 `DEFAULT_AUTHENTICATION_CLASSES`
+
+- **`JWTAuthentication`**: 토큰 기반 인증 (로그인 시 토큰을 발급받아 사용)
+- **`SessionAuthentication`**: Django의 기본 세션 인증 (관리자 페이지나 브라우저 기반 로그인에 사용)
+    
+⚠️ 둘 다 같이 쓰면, 브라우저에선 세션으로, API 호출에선 JWT로 인증 가능해 유용합니다.
+
+
+```python
+'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+```
+
+
+#### 🔹 `DEFAULT_SCHEMA_CLASS`
+
+- **drf-spectacular** 라이브러리를 사용해서 OpenAPI(Swagger) 문서 자동 생성을 가능하게 합니다.    
+- `AutoSchema`가 스키마 생성을 자동화해 줍니다.
+
+### ✅ 결론
+
+위 설정은 다음 목적에 적합합니다:
+
+- 브라우저에서 UI로 테스트 가능하게 하고 (`BrowsableAPIRenderer`)    
+- JWT 토큰 인증과 세션 인증을 함께 지원하고 (`JWT + Session`)
+- 자동으로 Swagger 문서를 만들게 하고 (`drf-spectacular`)
+    
+
+
+
 #### 4) 추가 설정 - 문서 제목, 설명 등
 
 ```python

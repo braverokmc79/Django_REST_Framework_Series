@@ -3,13 +3,14 @@
 #2)파워셸 :  $env:PYTHONUTF8=1; pip install -r requirements.txt
 
 
-asgiref==3.8.1
-Django==5.1.1
-django-extensions==3.2.3
-djangorestframework==3.15.2
-pillow==10.4.0
-sqlparse==0.5.1
-tzdata==2024.2
-django-silk==5.0.5
-djangorestframework-simplejwt==5.3.1
-drf-spectacular==0.27.1
+asgiref==3.8.1                    # 비동기 서버 게이트웨이 인터페이스 참조 구현 (ASGI) - Django 비동기 처리용
+Django==5.1.1                     # Django 웹 프레임워크의 핵심 패키지
+django-extensions==3.2.3         # Django 개발 편의를 위한 확장 유틸 모음 (shell_plus 등)
+djangorestframework==3.15.2      # Django에서 RESTful API를 만들 수 있게 해주는 프레임워크
+pillow==10.4.0                   # 이미지 처리 라이브러리 (PIL의 포크)
+sqlparse==0.5.1                  # SQL 구문 분석기 - Django SQL 디버깅 등에 사용
+tzdata==2024.2                   # 시간대 정보 제공 - Windows 환경의 시간대 처리 보완
+django-silk==5.0.5               # Django용 프로파일링 및 SQL 성능 분석 도구
+djangorestframework-simplejwt==5.3.1   # DRF용 JWT 인증 지원 패키지
+drf-spectacular==0.27.1          # OpenAPI 3 스키마 생성을 위한 DRF 확장
+django-filter==24.2              # DRF에서 필터 기능을 쉽게 구현할 수 있도록 해주는 필터링 도구

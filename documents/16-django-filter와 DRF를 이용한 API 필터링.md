@@ -1,7 +1,13 @@
-## Django REST Framework(DRF) - django-filter 패키지와 DRF를 이용한 API 필터링
+
+## 16-django-filter와 DRF를 이용한 API 필터링
+[![16 - django-filter와 DRF를 이용한 API 필터링](https://img.youtube.com/vi/NDFgTGTI8zg/0.jpg)](https://youtu.be/NDFgTGTI8zg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+---
+
 
 ### 1. 개요
-이번 영상에서는 Django REST Framework(DRF)에서 `django-filter` 패키지를 활용해 API 응답 데이터를 필터링하는 방법을 배웁니다. 대량의 데이터를 클라이언트가 직접 걸러내는 대신, 서버에서 원하는 조건의 데이터만 응답해주는 방식으로 API 성능을 높이고, 사용 편의성을 개선할 수 있습니다.
+
+이번 강의에서는 Django REST Framework(DRF)에서 `django-filter` 패키지를 활용해 API 응답 데이터를 필터링하는 방법을 배웁니다. 대량의 데이터를 클라이언트가 직접 걸러내는 대신, 서버에서 원하는 조건의 데이터만 응답해주는 방식으로 API 성능을 높이고, 사용 편의성을 개선할 수 있습니다.
 
 ---
 
@@ -24,11 +30,34 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend'
-    ],
+
+  ...
+
+  'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 ```
+
+예 - 자동 필터 처리
+```bash
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filterset_fields = ['category', 'price']
+---
+/api/products/?category=book
+/api/products/?price=5000
+
+```
+
+
+📝 정리
+
+| 설정 항목                                                 | 설명                                  |
+| ----------------------------------------------------- | ----------------------------------- |
+| `'DEFAULT_FILTER_BACKENDS'`                           | 필터 처리를 어떤 방식으로 할지 정하는 설정            |
+| `'django_filters.rest_framework.DjangoFilterBackend'` | django-filter를 사용한 강력하고 직관적인 필터링 지원 |
+
 
 ---
 
@@ -45,11 +74,12 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 
 ---
 
+
 ### 5. 고급 필터링: FilterSet 클래스 사용
 `filters.py` 파일 생성 후 아래처럼 작성:
 ```python
 import django_filters
-from .models import Product
+from api.models import Product
 
 class ProductFilter(django_filters.FilterSet):
     class Meta:
@@ -65,13 +95,27 @@ class ProductFilter(django_filters.FilterSet):
 - `lt`, `gt`: 작다/크다
 - `range`: 범위 조회 (예: `?price__range=100,500`)
 
+
+
 View에서 설정:
 ```python
+from api.filters import ProductFilter
+
+
 class ProductListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    filterset_class = ProductFilter
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    #filterset_fields = ('name', 'price')
+    filterset_class = ProductFilter
+
+    def get_permissions(self):
+        self.permission_classes = [AllowAny]
+        if self.request.method == 'POST':
+            self.permission_classes = [IsAdminUser]
+        return super().get_permissions()
+
 ```
+
 
 ---
 
@@ -97,5 +141,5 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 - 간단한 필터링은 `filterset_fields`, 고급 필터링은 `FilterSet` 클래스 활용
 - API 응답 최적화 및 사용자 편의성 향상에 매우 효과적
 
-> 다음 영상에서는 DRF의 검색(SearchFilter)과 정렬(OrderingFilter) 기능을 활용하는 방법을 알아봅니다.
+> 다음 강의에서는 DRF의 검색(SearchFilter)과 정렬(OrderingFilter) 기능을 활용하는 방법을 알아봅니다.
 
