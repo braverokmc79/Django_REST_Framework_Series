@@ -55,20 +55,28 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 ```python
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.prefetch_related('items__product')  
-    serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
-    pagination_class = None
-    filterset_class = OrderFilter
-    filter_backends = [DjangoFilterBackend]
+    # 기본적으로 Order와 관련된 items.product까지 함께 불러옴 (쿼리 최적화)
+    queryset = Order.objects.prefetch_related('items__product')
+    
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]  # 로그인된 사용자만 접근 가능
+    pagination_class = None  # 페이징 비활성화
+    filterset_class = OrderFilter  # 필터셋 클래스 지정
+    filter_backends = [DjangoFilterBackend]  # 필터 백엔드 활성화
 
-      def get_queryset(self):
-       qs = super().get_queryset()
-        if not self.request.user.is_staff:
-            qs = qs.filter(user=self.request.user)
-        return qs
+    def get_queryset(self):
+        """
+        관리자: 전체 주문 조회 가능
+        일반 사용자: 본인 주문만 조회 가능
+        """
+        qs = super().get_queryset()  # 기본 queryset 가져오기
+        if not self.request.user.is_staff:
+            # 일반 사용자일 경우 본인 주문만 필터링
+            qs = qs.filter(user=self.request.user)
+        return qs
 
 ```
+
 
 - `is_staff`가 False인 일반 사용자에겐 본인의 주문만 응답
 - 관리자는 모든 주문 데이터 접근 가능
