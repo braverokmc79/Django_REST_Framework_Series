@@ -122,7 +122,9 @@ class OrderViewSet(viewsets.ModelViewSet):
         url_path='user-orders',     # URL: `/orders/user-orders/` 로 접근   
     )
     def user_orders(self, request):
-        orders = self.get_queryset().filter(user=request.user)
+	    #orders = self.get_queryset().filter(user=request.user)
+        filtered_qs = self.filter_queryset(self.get_queryset())
+        orders = filtered_qs.filter(user=request.user)
         serializer = self.get_serializer(orders, many=True)
         return Response(serializer.data)
 ```
@@ -139,6 +141,9 @@ http://127.0.0.1:8000/orders/user-orders/?created_at__lt=2025-07-20
 - orders = self.get_queryset().filter(user=request.user)  # 현재 로그인한 사용자의 주문만 조회
 - serializer = self.get_serializer(orders, many=True)     # 여러 개니까 many=True
 -  return Response(serializer.data)                        # 직렬화된 JSON 응답 반환
+- filtered_qs = self.filter_queryset(self.get_queryset())  # 필터셋, 검색, 정렬 적용됨
+- orders = filtered_qs.filter(user=request.user)  # 여기에 사용자 필터 추가
+
 
 
 
@@ -191,7 +196,9 @@ class OrderViewSet(viewsets.ModelViewSet):
         url_path='user-orders',
     )
     def user_orders(self, request):
-        orders = self.get_queryset().filter(user=request.user)
+        #orders = self.get_queryset().filter(user=request.user)
+        filtered_qs = self.filter_queryset(self.get_queryset())
+        orders = filtered_qs.filter(user=request.user
         serializer = self.get_serializer(orders, many=True)
         return Response(serializer.data)
 ```
