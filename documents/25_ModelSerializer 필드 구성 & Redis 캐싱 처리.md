@@ -1,4 +1,12 @@
-## Django REST Framework(DRF) - ModelSerializer 필드 구성 & Redis와 함께 캐싱 처리하기
+
+## 25-ModelSerializer 필드 구성 & Redis 캐싱 처리
+[![25 - ModelSerializer 필드 구성 & Redis 캐싱 처리](https://img.youtube.com/vi/NgUARZNOuTY/0.jpg)](https://youtu.be/NgUARZNOuTY?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
+
+
+---
 
 ### 1. 개요
 
@@ -49,6 +57,7 @@ class UserSerializer(serializers.ModelSerializer):
   - 새 필드가 추가되어도 자동 포함됨
   - 속성 또는 커스텀 메서드 필드를 지정할 수 없음
 
+
 #### 4) 속성 및 커스텀 메서드 활용 (명시적 fields 방식에서만 가능)
 
 ```python
@@ -60,6 +69,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 - `get_full_name`, `is_authenticated` 등 모델 메서드/속성 포함 가능
 - `fields = '__all__'` 또는 `exclude` 사용 시 오류 발생함
+
+
 
 #### 5) 역참조(Related Name) 포함
 
@@ -73,6 +84,44 @@ class UserSerializer(serializers.ModelSerializer):
 - 외래키로 연결된 객체도 포함 가능
 - 필요 시 nested serializer로 확장 가능
 
+
+####  6) api/modes.py  추가 related_name='orders'
+
+related_name='orders'  로 관계 설정을 해야  UserSerializer 의  fields 에 orders 사용할 수 있음
+
+
+```python
+class Order(models.Model):
+		...
+	user = models.ForeignKey(User, on_delete=models.CASCADE , related_name='orders')
+	...
+```
+
+
+#### 7) api/views.py  추가
+
+api/views.py
+
+```python
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    pagination_class = None
+    
+```
+
+
+#### 8) api/urls.py 추가
+
+```python
+ path('users/', views.UserListView.as_view()),
+```
+
+
+
+
+
 ---
 
 ### 3. 실무 예외 상황
@@ -80,6 +129,8 @@ class UserSerializer(serializers.ModelSerializer):
 - 실무에서는 fields='**all**'을 사용한 프로젝트도 존재
 - password 해시가 API 응답에 포함되거나, 민감한 사용자 권한 데이터가 노출되는 사례 있음
 - 필드는 반드시 명시적으로 선언할 것
+
+
 
 ---
 
@@ -100,6 +151,7 @@ class ProductListView(ListAPIView):
 ```
 
 - 위 코드는 5분 동안 응답 결과를 캐싱함
+
 
 ---
 
