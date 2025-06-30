@@ -14,3 +14,5 @@ django-silk==5.0.5               # Django용 프로파일링 및 SQL 성능 분�
 djangorestframework-simplejwt==5.3.1   # DRF용 JWT 인증 지원 패키지
 drf-spectacular==0.27.1          # OpenAPI 3 스키마 생성을 위한 DRF 확장
 django-filter==24.2              # DRF에서 필터 기능을 쉽게 구현할 수 있도록 해주는 필터링 도구
+redis[hiredis]                   # Redis 클라이언트 및 hiredis C 라이브러리로 성능 향상
+django-redis                    # Django에서 캐시 백엔드로 Redis 사용 가능하게 해주는 라이브러리
