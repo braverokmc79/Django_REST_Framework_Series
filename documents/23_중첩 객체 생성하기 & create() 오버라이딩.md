@@ -1,5 +1,8 @@
 ## 23-중첩 객체 생성하기 & create() 오버라이딩
-[![23 - 중첩 객체 생성하기 & create() 오버라이딩](https://img.youtube.com/vi/CAq7AKAT7Q0/0.jpg)](https://youtu.be/CAq7AKAT7Q0?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
+[23 - 중첩 객체 생성하기 & create() 오버라이딩](https://youtu.be/CAq7AKAT7Q0?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
 ---

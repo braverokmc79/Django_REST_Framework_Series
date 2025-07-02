@@ -1,6 +1,10 @@
 
 ## 22-Viewset 권한 설정 & 관리자 vs 일반 사용자
-[![22 - Viewset 권한 설정 & 관리자 vs 일반 사용자](https://img.youtube.com/vi/KmYYg1qJKNQ/0.jpg)](https://youtu.be/KmYYg1qJKNQ?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
+
+[22 - Viewset 권한 설정 & 관리자 vs 일반 사용자](https://youtu.be/KmYYg1qJKNQ?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
 

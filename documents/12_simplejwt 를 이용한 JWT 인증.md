@@ -1,6 +1,9 @@
 
 ## 12-simplejwt 를 이용한 JWT 인증
-[![12 - simplejwt를 이용한 JWT 인증](https://img.youtube.com/vi/Xp0-Yy5ow5k/0.jpg)](https://youtu.be/Xp0-Yy5ow5k?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+[12 - simplejwt를 이용한 JWT 인증](https://youtu.be/Xp0-Yy5ow5k?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
 
 
 

@@ -1,5 +1,7 @@
-## 26-Django & Redis - Vary Header를 통한 캐싱 제어
-[![26 - Django & Redis - Vary Header를 통한 캐싱 제어](https://img.youtube.com/vi/5W2Yff00H8s/0.jpg)](https://youtu.be/5W2Yff00H8s?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+## 26-Redis - Vary Header를 통한 캐싱 제어
+
+
+[26 - Django & Redis - Vary Header를 통한 캐싱 제어](https://youtu.be/5W2Yff00H8s?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
 

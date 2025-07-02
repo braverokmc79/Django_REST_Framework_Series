@@ -1,5 +1,8 @@
 ## 21-Viewset에서의 액션, 필터링, 권한 처리
-[![21 - Viewset에서의 액션, 필터링, 권한 처리](https://img.youtube.com/vi/rekvVrjUMjg/0.jpg)](https://youtu.be/rekvVrjUMjg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
+[21 - Viewset에서의 액션, 필터링, 권한 처리](https://youtu.be/rekvVrjUMjg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
 ---

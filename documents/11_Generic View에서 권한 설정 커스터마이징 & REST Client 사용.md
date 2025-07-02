@@ -1,6 +1,8 @@
 
 ## 11-Generic View에서 권한 설정 커스터마이징 & REST Client 사용
-[![11 - Generic View에서 권한 설정 커스터마이징 & REST Client 사용](https://img.youtube.com/vi/mlQZ1i8rUKQ/0.jpg)](https://youtu.be/mlQZ1i8rUKQ?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+[11 - Generic View에서 권한 설정 커스터마이징 & REST Client 사용](https://youtu.be/mlQZ1i8rUKQ?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
 ---

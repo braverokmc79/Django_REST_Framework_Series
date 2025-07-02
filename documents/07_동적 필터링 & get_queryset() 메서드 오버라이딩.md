@@ -1,6 +1,8 @@
 
 ## 07-동적 필터링 & get_queryset() 메서드 오버라이딩
-[![07 - 동적 필터링 & get_queryset() 메서드 오버라이딩](https://img.youtube.com/vi/3Gi-w4Swge8/0.jpg)](https://youtu.be/3Gi-w4Swge8?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+[07 - 동적 필터링 & get_queryset() 메서드 오버라이딩](https://youtu.be/3Gi-w4Swge8?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
 ---

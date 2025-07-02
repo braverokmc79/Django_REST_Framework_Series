@@ -1,6 +1,10 @@
 
 ## 16-django-filter와 DRF를 이용한 API 필터링
-[![16 - django-filter와 DRF를 이용한 API 필터링](https://img.youtube.com/vi/NDFgTGTI8zg/0.jpg)](https://youtu.be/NDFgTGTI8zg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
+[16 - django-filter와 DRF를 이용한 API 필터링](https://youtu.be/NDFgTGTI8zg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
 
 ---
 

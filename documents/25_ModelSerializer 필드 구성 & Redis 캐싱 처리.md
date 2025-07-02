@@ -1,8 +1,9 @@
 
 ## 25-ModelSerializer 필드 구성 & Redis 캐싱 처리
-[![25 - ModelSerializer 필드 구성 & Redis 캐싱 처리](https://img.youtube.com/vi/NgUARZNOuTY/0.jpg)](https://youtu.be/NgUARZNOuTY?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
+
+[25 - ModelSerializer 필드 구성 & Redis 캐싱 처리](https://youtu.be/NgUARZNOuTY?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
 

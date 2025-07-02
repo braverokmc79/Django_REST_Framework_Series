@@ -1,5 +1,10 @@
 ## 17-SearchFilter와 OrderingFilter 사용하기
-[![17 - SearchFilter와 OrderingFilter 사용하기](https://img.youtube.com/vi/LCYqDsl1WYI/0.jpg)](https://youtu.be/LCYqDsl1WYI?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
+[17 - SearchFilter와 OrderingFilter 사용하기](https://youtu.be/LCYqDsl1WYI?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
 
 ---
 

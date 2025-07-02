@@ -1,10 +1,9 @@
 
 ## 04-Serializer 하위 클래스와 집계형 API 데이터 처리
-[![04 - Serializer 하위 클래스와 집계형 API 데이터 처리](https://img.youtube.com/vi/_xbI0-mjtw4/0.jpg)](https://youtu.be/_xbI0-mjtw4?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+[04 - Serializer 하위 클래스와 집계형 API 데이터 처리](https://youtu.be/_xbI0-mjtw4?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
-
-🔗 https://youtu.be/_xbI0-mjtw4?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t
 
 ---
 

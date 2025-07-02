@@ -1,7 +1,7 @@
-### 24-중첩 객체 수정하기 & update() 사용
-[![24 - 중첩 객체 수정하기 & update() 사용](https://img.youtube.com/vi/QtkES6O_ed4/0.jpg)](https://youtu.be/QtkES6O_ed4?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+## 24-중첩 객체 수정하기 & update() 사용
 
 
+[24 - 중첩 객체 수정하기 & update() 사용](https://youtu.be/QtkES6O_ed4?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 

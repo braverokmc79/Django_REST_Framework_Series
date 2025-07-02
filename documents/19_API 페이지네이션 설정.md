@@ -1,5 +1,9 @@
 ## 19-API 페이지네이션 설정
-[![19 - API 페이지네이션 설정](https://img.youtube.com/vi/sTyMe2R9mzk/0.jpg)](https://youtu.be/sTyMe2R9mzk?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
+
+[19 - API 페이지네이션 설정](https://youtu.be/sTyMe2R9mzk?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
 

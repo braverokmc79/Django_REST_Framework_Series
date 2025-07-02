@@ -1,6 +1,9 @@
 
 ## 05-django-silk를 활용한 성능 최적화
-[![05 - django-silk를 활용한 성능 최적화](https://img.youtube.com/vi/OG8alXR4bEs/0.jpg)](https://youtu.be/OG8alXR4bEs?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+[05 - django-silk를 활용한 성능 최적화](https://youtu.be/OG8alXR4bEs?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
 
 ---
 

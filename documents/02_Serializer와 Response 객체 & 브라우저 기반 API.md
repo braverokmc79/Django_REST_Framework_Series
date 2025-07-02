@@ -1,10 +1,13 @@
 ## 02-Serializer와 Response 객체 & 브라우저 기반 API
-[![02 - Serializer와 Response 객체 & 브라우저 기반 API](https://img.youtube.com/vi/BMym71Dwox0/0.jpg)](https://youtu.be/BMym71Dwox0?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+[02 - Serializer와 Response 객체 & 브라우저 기반 API](https://youtu.be/BMym71Dwox0?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 ---
 
 
-🔗 소스 1. https://github.com/bugbytes-io/drf-course-api
+🔗 소스 1. https://github.com/bugbytes-io/drf-course-api 
+
+
 🔗  소스 2. https://github.dev/braverokmc79/Django_REST_Framework_Series
 
 

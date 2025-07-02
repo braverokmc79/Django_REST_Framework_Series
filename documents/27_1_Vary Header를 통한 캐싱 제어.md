@@ -1,4 +1,12 @@
-## Django REST Framework(DRF) - Redis와 Vary Header를 통한 캐싱 동작 제어
+
+## 27-Vary Header를 통한 캐싱 제어
+
+
+[27 - Vary 헤더로 캐시 제어](https://youtu.be/iUn8go-XZNw?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
+---
 
 ### 1. 개요
 

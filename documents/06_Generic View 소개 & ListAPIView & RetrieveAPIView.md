@@ -1,7 +1,11 @@
 
 ## 06-Generic View 소개 & ListAPIView & RetrieveAPIView
 
-[![06 - Generic View 소개 & ListAPIView & RetrieveAPIView](https://img.youtube.com/vi/vExjSChWPWg/0.jpg)](https://youtu.be/vExjSChWPWg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+[06 - Generic View 소개 & ListAPIView & RetrieveAPIView](https://youtu.be/vExjSChWPWg?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
 
 
 ---

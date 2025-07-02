@@ -1,5 +1,9 @@
 ## 03-중첩 Serializer, SerializerMethodField 및 관계 표현
-[![03 - 중첩 Serializer, SerializerMethodField 및 관계 표현](https://img.youtube.com/vi/KfSYadIFHgY/0.jpg)](https://youtu.be/KfSYadIFHgY?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
+[03 - 중첩 Serializer, SerializerMethodField 및 관계 표현](https://youtu.be/KfSYadIFHgY?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
 
 
 ---

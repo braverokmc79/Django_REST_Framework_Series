@@ -1,5 +1,8 @@
 ##  15-DRF-spectacular로 DRF API 문서화 도구 및Swagger(OpenAPI) 
-[![15 - drf-spectacular로 DRF API 문서화 도구](https://img.youtube.com/vi/E3LUvsPWLwM/0.jpg)](https://youtu.be/E3LUvsPWLwM?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+
+[15 - drf-spectacular로 DRF API 문서화 도구](https://youtu.be/E3LUvsPWLwM?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
 
 
 

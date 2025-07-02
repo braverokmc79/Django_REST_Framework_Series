@@ -1,4 +1,12 @@
-## Django REST Framework(DRF) - API 호출 제한 (Throttling)
+## 28-API 호출 제한 (Throttling)
+
+
+
+[28 - API 호출 제한 (Throttling)](https://youtu.be/95ndK3P9YLI?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+---
+
 
 ### 1. 개요
 이번 강의에서는 Django REST Framework(DRF)에서 **API 호출 제한(Throttling)** 기능을 활용하여 사용자별, 요청 유형별로 **요청 빈도를 제한하는 방법**을 학습합니다. 이는 API 남용을 방지하고, 서비스 자원을 효율적으로 관리하기 위한 중요한 기법입니다.
@@ -37,6 +45,7 @@ REST_FRAMEWORK = {
 ---
 
 ### 4. 실습: 익명 사용자 제한 테스트
+
 1. `/products/` API에 접근 (비로그인 상태)
 2. 첫 두 요청은 정상 응답
 3. 세 번째 요청부터 429 응답 발생:
@@ -50,13 +59,16 @@ REST_FRAMEWORK = {
 ---
 
 ### 5. 인증 사용자 제한 테스트
+
 - 로그인 후 `/products/` API 접근 시 최대 3회까지 응답 가능
 - 4회째 요청 시 429 오류 발생
 
 ---
 
 ### 6. 커스텀 Throttle 클래스 구성
+
 `throttles.py`:
+
 ```python
 from rest_framework.throttling import UserRateThrottle
 
@@ -87,6 +99,7 @@ REST_FRAMEWORK = {
 ---
 
 ### 7. ScopedRateThrottle 사용
+
 `views.py`:
 ```python
 from rest_framework.throttling import ScopedRateThrottle
@@ -126,4 +139,7 @@ REST_FRAMEWORK = {
 - Redis 등 외부 캐시 연동 및 커스텀 클래스 확장으로 더욱 정밀한 제어 가능
 
 > 다음 강의에서는 Django REST Framework의 **테스트 도구**를 활용한 API 테스트 자동화 방법을 배웁니다.
+
+
+
 

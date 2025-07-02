@@ -1,6 +1,9 @@
 
 ## 20-ViewSet & Router 기본 사용법
-[![20 - ViewSet & Router 기본 사용법](https://img.youtube.com/vi/4MrB4IvW6Ow/0.jpg)](https://youtu.be/4MrB4IvW6Ow?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+[20 - ViewSet & Router 기본 사용법](https://youtu.be/4MrB4IvW6Ow?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
 
 
 ---

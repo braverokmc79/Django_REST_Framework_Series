@@ -1,6 +1,10 @@
 
 ## 13-Refresh Token과 JWT 인증 심화
-[![13 - Refresh Token과 JWT 인증 심화](https://img.youtube.com/vi/H3OY36wa7Cs/0.jpg)](https://youtu.be/H3OY36wa7Cs?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
+[13 - Refresh Token과 JWT 인증 심화](https://youtu.be/H3OY36wa7Cs?list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t)
+
+
 
 
 
