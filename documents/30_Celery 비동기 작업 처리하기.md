@@ -8,6 +8,11 @@
 
 
 
+🔗 [소스 1: bugbytes-io/drf-course-api](https://github.com/bugbytes-io/drf-course-api)
+
+🔗 [소스 2: braverokmc79/Django_REST_Framework_Series](https://github.com/braverokmc79/Django_REST_Framework_Series)
+
+
 ---
 
 ### 1. 개요
@@ -143,8 +148,6 @@ celery -A myproject worker --loglevel=info
 3. 콘솔 이메일 백엔드이므로 실제 메일은 전송되지 않고 터미널에 표시됨
 
 
-
-
 ---
 
 ### 8. 확장 팁
@@ -152,8 +155,6 @@ celery -A myproject worker --loglevel=info
 - 결과 저장이 필요하면 `CELERY_RESULT_BACKEND` 설정을 통해 Redis 등에 저장 가능
 - 주기적 작업이 필요하면 Celery Beat 활용 (스케줄링 가능)
 - 복잡한 흐름은 체이닝, 그룹화 등의 기능으로 구현 가능
-
-
 
 
 ---
@@ -167,8 +168,99 @@ Celery를 활용하면 DRF API에서 긴 시간이 필요한 작업을 백그라
 
 
 
+---
 
 
+# Spring Boot Kafka vs Django Celery 비교 
 
+**백엔드에서 비동기 작업 처리**는 필수적인 기능입니다. Python 진영에서는 `Django + Celery`, Java 진영에서는 `Spring Boot + Kafka` 또는 `@Async` 기반 비동기 처리 방식이 많이 사용됩니다. 이 글에서는 이 두 가지 조합을 비교해보겠습니다.
 
+---
 
+## ✅ 개요
+
+| 항목         | Django + Celery        | Spring Boot + Kafka              |
+| ---------- | ---------------------- | -------------------------------- |
+| 언어/프레임워크   | Python / Django        | Java / Spring Boot               |
+| 주요 목적      | 비동기 작업 처리, 주기적 작업      | 비동기 메시지 처리, 이벤트 기반 시스템           |
+| 메시지 브로커    | Redis, RabbitMQ        | Kafka, RabbitMQ (또는 Redis)       |
+| 주기적 작업 지원  | `celery-beat`로 cron 지원 | `@Scheduled`, Quartz Scheduler 등 |
+| 실시간 비동기 작업 | ✅ 가능                   | ✅ 가능                             |
+| 확장성        | 수평 확장 쉬움 (Worker 방식)   | 고성능 스트리밍 처리 가능 (Kafka 기반)        |
+| 메시지 순서 보장  | 브로커 설정 및 Celery 설정 필요  | Kafka 파티션 기준 순서 보장               |
+
+---
+
+## ✅ 구조적 차이점
+
+### 🔹 Django + Celery 구조
+
+```
+사용자 요청
+     ↓
+  Django App
+     ↓ (비동기 호출)
+   Celery Task Queue
+     ↓
+   Redis / RabbitMQ (브로커)
+     ↓
+  Celery Worker → 결과 처리
+```
+
+### 🔹 Spring Boot + Kafka 구조
+
+```
+사용자 요청
+     ↓
+Spring Boot App
+     ↓ (KafkaTemplate 등으로 전송)
+   Kafka Broker (토픽에 저장)
+     ↓
+Kafka Consumer(@KafkaListener)
+     ↓
+    처리 및 응답 (필요시 DB 등)
+```
+
+---
+
+## ✅ 개발자 경험 (DX) 비교
+
+|항목|Django + Celery|Spring Boot + Kafka|
+|---|---|---|
+|설정 편의성|상대적으로 간단 (pip 설치)|설정이 복잡하고 JVM 생태계 요구|
+|디버깅|Celery 로그로 가능하나 초기엔 다소 헷갈림|Kafka는 구조 파악이 필요, 복잡도 높음|
+|문서/자료|많음 (Django/Celery 공식문서, 블로그)|많음 (Spring 공식 문서, Kafka 문서)|
+|실습 난이도|로컬에서도 쉽게 가능|Kafka는 도커/클러스터 등 환경 구성 필요|
+
+---
+
+## ✅ 실무 적합성
+
+|시나리오|추천 기술|
+|---|---|
+|이메일/알림 발송, 예약작업 등|Django + Celery|
+|주문 이벤트 처리, 실시간 로그 수집|Spring Boot + Kafka|
+|고성능 스트리밍 처리|Kafka (Spring or Python)|
+|단순 백그라운드 작업|Celery or @Async (Spring)|
+
+---
+
+## ✅ 결론
+
+- Python 개발자라면 Django + Celery로 빠르게 비동기/스케줄 작업 환경을 구축할 수 있습니다.
+    
+- Java 기반 서비스나 마이크로서비스 환경이라면 Spring Boot + Kafka가 강력한 선택지입니다.
+    
+- **Kafka는 프레임워크가 아니라 메시지 시스템**이므로, Django에서도 Kafka를 사용할 수 있습니다.
+    
+
+결국 선택은 다음에 달려 있습니다:
+
+- 언어 선호도
+    
+- 시스템 복잡도
+    
+- 처리할 트래픽 규모
+    
+- 운영 환경 구성 능력
+    
