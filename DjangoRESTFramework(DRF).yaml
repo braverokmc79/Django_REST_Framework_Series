@@ -1,0 +1,367 @@
+type: collection.insomnia.rest/5.0
+name: Codam_Django_REST_Framework_Series
+meta:
+  id: wrk_62336920942c4b7bbad1ad36e46e7e0d
+  created: 1750929201166
+  modified: 1750929201166
+  description: ""
+collection:
+  - name: Django_REST_Framework
+    meta:
+      id: fld_c053f55de01a45fe8f463d7a00d90093
+      created: 1750929677693
+      modified: 1750933434171
+      sortKey: -1750929677693
+      description: ""
+    children:
+      - name: product
+        meta:
+          id: fld_5da1075e5b6948cda5e636542044323a
+          created: 1750929252757
+          modified: 1750929689727
+          sortKey: -1750929685515
+          description: ""
+        children:
+          - url: "{{ host}}/products/"
+            name: /products/
+            meta:
+              id: req_62e2c87a98c94664ab997eb2e74ecd9e
+              created: 1750929201204
+              modified: 1750932236348
+              isPrivate: false
+              description: ""
+              sortKey: -1750929303749
+            method: GET
+            headers:
+              - id: pair_d83916af365343c2ac88cbb888e16003
+                name: Content-Type
+                value: application/json
+                description: ""
+                disabled: false
+              - id: pair_7297f5cfed714216a5b3bee4aea78c22
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            authentication:
+              type: bearer
+              token: "{{ _.access }}"
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ host}}/products/"
+            name: /products/
+            meta:
+              id: req_3eebba46db914961a5de95cc79d7e73a
+              created: 1750929201217
+              modified: 1750933436279
+              isPrivate: false
+              description: ""
+              sortKey: -1750929303649
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "name": "Macaron",
+                  "price": 1200
+                }
+            headers:
+              - id: pair_b12219321a6f40dfb569cdb4f1d1b9e0
+                name: Content-Type
+                value: application/json
+                description: ""
+                disabled: false
+              - id: pair_74e4a9192bcf4514b5a5464880fb8c4a
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ host}}/products/1/"
+            name: /products/:product_id/
+            meta:
+              id: req_4367d431932c464586c0eba64537e65b
+              created: 1750929201230
+              modified: 1750931757058
+              isPrivate: false
+              description: ""
+              sortKey: -1750929303849
+            method: GET
+            headers:
+              - id: pair_12887b87cf8c41b4ae5dde9a90c32ca9
+                name: Content-Type
+                value: application/json
+                description: ""
+                disabled: false
+              - id: pair_b6105c3e45fe422cb4ccbcc515f3ec10
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ host}}/products/info/"
+            name: /products/info/
+            meta:
+              id: req_069499bdcb894a1ca448e70b69d001ae
+              created: 1750929201244
+              modified: 1750931806780
+              isPrivate: false
+              description: ""
+              sortKey: -1750929303949
+            method: GET
+            headers:
+              - id: pair_6b7a9286d3dd4536ae3471200404d872
+                name: Content-Type
+                value: application/json
+                description: ""
+                disabled: false
+              - id: pair_17b2c77249ac422a953e8fdf89ff2568
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: orders
+        meta:
+          id: fld_fb2eefacdaa34237b11d5a92972faae6
+          created: 1750929323305
+          modified: 1750929687525
+          sortKey: -1750929685415
+          description: ""
+        children:
+          - url: "{{ host }}/orders/"
+            name: /orders/
+            meta:
+              id: req_72940ae6375e49af8ff7c35ba2a221d1
+              created: 1750929201268
+              modified: 1750931814900
+              isPrivate: false
+              description: ""
+              sortKey: -1750929340940
+            method: GET
+            headers:
+              - id: pair_dd73adbb3b4243bab7261022d90b85b0
+                name: Content-Type
+                value: application/json
+                description: ""
+                disabled: false
+              - id: pair_eca3859e09e84fe29e2e857ce23bbfb4
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ host}}/user-orders/"
+            name: /user-orders/
+            meta:
+              id: req_38051eeb27f64fc1a04efe13a208a139
+              created: 1750929201281
+              modified: 1750931812962
+              isPrivate: false
+              description: ""
+              sortKey: -1750929341040
+            method: GET
+            headers:
+              - id: pair_322cdf49a79d432999035d5e5dad9010
+                name: Content-Type
+                value: application/json
+                description: ""
+                disabled: false
+              - id: pair_5e9e8c457bef4672875a2acfb0834174
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: token
+        meta:
+          id: fld_7c36f0168a6b4824bcfa5d85c8eec0da
+          created: 1750929356852
+          modified: 1750933434171
+          sortKey: -1750929685315
+          description: ""
+        children:
+          - url: "{{ host }}/api/token/"
+            name: /api/token/
+            meta:
+              id: req_6ccfb4256db9476fb17eaaa68a77edd8
+              created: 1750929201178
+              modified: 1750933390216
+              isPrivate: false
+              description: ""
+              sortKey: -1750929377320
+            method: POST
+            body:
+              mimeType: application/json
+              text: |
+                {
+                	"username": "admin",
+                	"password": "test"
+                }
+            headers:
+              - id: pair_d349eaf6cb344cce82324d90e4761c60
+                name: Content-Type
+                value: application/json
+                description: ""
+                disabled: false
+              - id: pair_0c4558c0b74a487086bba2680c93d7f8
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            authentication:
+              type: none
+            scripts:
+              afterResponse: |
+                insomnia.test("Status code is 200", function () {
+                    insomnia.response.to.have.status(200);  // ✅ 올바른 상태 코드 확인
+
+                    const body = insomnia.response.json();  // 응답 JSON 파싱
+
+                	  console.log("**** body ",body);
+                	
+                    // ✅ 환경 변수 저장
+                    insomnia.environment.set("access", body.access);
+                    insomnia.environment.set("refresh", body.refresh);
+                	
+                	
+                	
+                	 const access=insomnia.environment.get("access");
+                	console.log("**** %%%%%%% ",access);
+                });
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "{{ host}}/api/token/refresh/"
+            name: /api/token/refresh/
+            meta:
+              id: req_1db240553f394526a6c420f46fc99c6e
+              created: 1750929201191
+              modified: 1750931637309
+              isPrivate: false
+              description: ""
+              sortKey: -1750929377420
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "refresh": "{{ _.refresh }}"
+                }
+            headers:
+              - id: pair_8867b295f46e46f5b96a238144af09d0
+                name: Content-Type
+                value: application/json
+                description: ""
+                disabled: false
+              - id: pair_edad7066e8fb40e5812fc75e9658701f
+                name: Accept
+                value: application/json
+                description: ""
+                disabled: false
+            scripts:
+              afterResponse: |
+                insomnia.test("Status code is 200 or 201", function () {
+                    const status = insomnia.response.status;
+                    insomnia.expect([200, 201]).to.include(status);
+
+                    const body = insomnia.response.json();
+
+                    // access / refresh 토큰 저장
+                    insomnia.environment.set("access", body.access);    
+                });
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+    authentication:
+      type: bearer
+      token: "{{ _.access }}"
+    headers:
+      - id: pair_f64ae03bacef4e2aadd56ab855bb13bb
+        name: access
+        value: "{{access}}"
+        description: ""
+        disabled: false
+      - id: pair_92161ea582b3436682a7b2f344af9a37
+        name: refresh
+        value: "{{refresh}}"
+        description: ""
+        disabled: false
+      - id: pair_414fb052234944f7b1d038cd39b19e75
+        name: Content-Type
+        value: application/json
+        description: ""
+        disabled: false
+      - id: pair_96fc3a867e834667b27c677e56d2a165
+        name: Accept
+        value: application/json
+        description: ""
+        disabled: false
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_31865a0339b0d6288331cd0c42b5bfe7f286e8bc
+    created: 1750929201294
+    modified: 1750933434146
+environments:
+  name: Base Environment
+  meta:
+    id: env_c5ded30892424794b0f83f5c4321db55
+    created: 1750929201171
+    modified: 1750933434155
+    isPrivate: false
+  data:
+    host: http://127.0.0.1:8000
+    access: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwOTMzNzM0LCJpYXQiOjE3NTA5MzM0MzQsImp0aSI6IjYwMGZmNDVlMTNmZjQyN2Y4NTdjYTJmNTY1MjliMTU2IiwidXNlcl9pZCI6MX0.gtZnAW-2_l1zLy_7Gm7o3mCu9md8kX9k5qs4JUvfEak
+    refresh: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1MTAxOTgzNCwiaWF0IjoxNzUwOTMzNDM0LCJqdGkiOiI0ZmRjOGE0Y2YyNzY0ZGVlOGIwMTYxNjVkNjhjMjJkMyIsInVzZXJfaWQiOjF9.qPVzerMFQEzAiZS3p-H_LDB7ug9jnTE1wV4nPQ6oe_U

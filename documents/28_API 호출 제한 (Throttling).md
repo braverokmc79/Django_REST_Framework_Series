@@ -30,14 +30,14 @@ DRF에서는 아래와 같은 기본 Throttle 클래스를 제공합니다:
 `settings.py` 예시:
 ```python
 REST_FRAMEWORK = {
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle',
-    ],
-    'DEFAULT_THROTTLE_RATES': {
-        'anon': '2/minute',
-        'user': '3/minute',
-    }
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',            
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '2/minute',
+        'products': '2/minute',
+        'orders': '4/minute'
+    }
 }
 ```
 - 익명 사용자는 분당 2회, 인증 사용자는 분당 3회 요청 허용
@@ -104,19 +104,75 @@ REST_FRAMEWORK = {
 ```python
 from rest_framework.throttling import ScopedRateThrottle
 
-class ProductListCreateAPIView(ListCreateAPIView):
-    throttle_classes = [ScopedRateThrottle]
-    throttle_scope = 'products'
+
+class ProductListCreateAPIView(generics.ListCreateAPIView):
+    throttle_scope = 'products'
+    throttle_classes = [ScopedRateThrottle]
+
+
+	...
+
+
+
+
+class OrderViewSet(viewsets.ModelViewSet):
+    throttle_scope = 'orders'
+    queryset = Order.objects.prefetch_related('items__product')
+
+	...
+
+
+
+
 ```
+
+
+- `throttle_scope`: 속도 제한의 **이름표(tag)** 역할을 함.
+    
+- `ScopedRateThrottle`: 해당 이름표에 설정된 제한 값을 적용하는 클래스.
+
+##### 🔹 ProductListCreateAPIView
+
+```python
+from rest_framework.throttling import ScopedRateThrottle
+
+class ProductListCreateAPIView(generics.ListCreateAPIView):
+    throttle_scope = 'products'
+    throttle_classes = [ScopedRateThrottle]
+    ...
+```
+
+→ `'products'`라는 이름으로 속도 제한 적용됨.  
+예: 하루 100번만 요청 가능 (`products: 100/day`)
+
+##### 🔹 OrderViewSet
+
+```python
+class OrderViewSet(viewsets.ModelViewSet):
+    throttle_scope = 'orders'
+    queryset = Order.objects.prefetch_related('items__product')
+    ...
+```
+
+→ `'orders'`라는 이름으로 속도 제한 적용됨.  
+예: 한 시간에 10번만 요청 가능 (`orders: 10/hour`)
+
+
+---
+
 
 `settings.py`:
 ```python
 REST_FRAMEWORK = {
-    'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
-    'DEFAULT_THROTTLE_RATES': {
-        'products': '2/minute',
-        'orders': '4/minute',
-    }
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',            
+    ],
+
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '2/minute',
+        'products': '2/minute',
+        'orders': '4/minute'
+    }
 }
 ```
 
