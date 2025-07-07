@@ -1,30 +1,24 @@
-GET http://localhost:8000/auth/users/me/ HTTP/1.1
+# GET http://localhost:8000/auth/users/me/ HTTP/1.1
 
 
-
+# 🔖  token 기반 인증 테스트
 ### 
-POST http://localhost:8000/auth/token/login/  HTTP/1.1
-Content-Type: application/json
+# POST http://localhost:8000/auth/token/login/  HTTP/1.1
+# Content-Type: application/json
 
-{
-   "username": "admin",
-   "password": "test" 
-}
+# {
+#    "username": "admin",
+#    "password": "1111" 
+# }
 
 
-
+# 🔖  token 기반 인증 테스트
 ### 
-POST http://localhost:8000/auth/token/logout/  HTTP/1.1
-Authorization: Token 336d3c437ae99c563fa4d6c08abb1c43bbfd7249
+# POST http://localhost:8000/auth/token/logout/  HTTP/1.1
+# Authorization: Token 336d3c437ae99c563fa4d6c08abb1c43bbfd7249
 
 
 
-
-
-#######################  JWT
-GET http://localhost:8000/auth/users/me/ HTTP/1.1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNzUxMDQ5LCJpYXQiOjE3NTE3NTA3NDksImp0aSI6IjBiYjhiMDg0NTE3YzRjNmZiZGU4MjMwNzdlNDA1YzNhIiwidXNlcl9pZCI6MX0.JXJFwIqOqP7JUlb-WywLwEmoIVEO7E3A-Ft8g72YQew
 
 
 
@@ -35,18 +29,34 @@ Content-Type: application/json
 
 {
    "username": "admin",
-   "password": "test" 
+   "password": "1111" 
 }
+
+
+### 토큰 변수 설정
+@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1MTk2MzU1NSwiaWF0IjoxNzUxODc3MTU1LCJqdGkiOiI3ZDAyNTg5N2MyYmU0MDVmYjY1N2FiNGU0NDRmNjFmYiIsInVzZXJfaWQiOjF9.g7UCmv81zAmFHCkns8mG6VMiroYhTL6aDpQOjnRP7XU
+
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxODc3NDU1LCJpYXQiOjE3NTE4NzcxNTUsImp0aSI6IjQ0YzA3NDNkNTg2NTRhOTNhNGU1YmEyNzBjNmVlZWE1IiwidXNlcl9pZCI6MX0.0UBtJ_Mi2p6alWb8xGNJzY8-QesOVlMWrDxHn65F2qc
+
+
+
+
+#######################  JWT
+GET http://localhost:8000/auth/users/me/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+
 
 
 
 ### verify 유효성 체크
 POST http://localhost:8000/auth/jwt/verify/  HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNzUxMzk2LCJpYXQiOjE3NTE3NTEwOTYsImp0aSI6IjY4YTRmMWJiNmFjMDRkMmZhMmE2OGQ3ZjEyZTJlMGQ5IiwidXNlcl9pZCI6MX0.KV71Rm-RkQF-e6g745samZEdomVkvuHuo79J2pmjgwo
+Authorization: Bearer {{accessToken}}
 
 {
-   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNzUxMzk2LCJpYXQiOjE3NTE3NTEwOTYsImp0aSI6IjY4YTRmMWJiNmFjMDRkMmZhMmE2OGQ3ZjEyZTJlMGQ5IiwidXNlcl9pZCI6MX0.KV71Rm-RkQF-e6g745samZEdomVkvuHuo79J2pmjgwo"
+   "token": "{{refreshToken}}"
 }
 
 
@@ -57,5 +67,5 @@ POST http://localhost:8000/auth/jwt/refresh/  HTTP/1.1
 Content-Type: application/json
 
 {
-   "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1MTgzNzU5MCwiaWF0IjoxNzUxNzUxMTkwLCJqdGkiOiI3ODg1MTYxNjY1MDU0MDZjOWU3ODQ3NWE4N2RiN2RkNCIsInVzZXJfaWQiOjF9.WAdtssbMN1xnNQ_P9kxlYI00HhGVejLa1HqNcvdu1kY"
+   "refresh": "{{refreshToken}}"
 }

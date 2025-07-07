@@ -59,6 +59,9 @@ MIDDLEWARE = [
 # CORS 허용 설정 (React 개발 서버 기준) 'http://localhost:5173',
 #전체 허용 개발용
 CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:5173',
+# ]
 
 
 
@@ -146,4 +149,11 @@ REST_FRAMEWORK = {
     ),
 }
 
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer",),  # ← "JWT"가 아니라 "Bearer" 여야 React 쪽과 호환됨
+}
+
+DJOSER = {
+    "LOGIN_FIELD": "username",  # 또는 "email"
+}
 
